@@ -5,15 +5,14 @@ let score = 0;
 //fonction pour mettre a jour le score et afficher dans l'interface utilisateur
 function updateScore(points) {
   score += points;
-  document.getElementById("score-value").textContent = score;
+  const scoreElement = document.getElementById("score-value");
+  if (scoreElement) {
+    scoreElement.textContent = score.toString();
+  } else {
+    console.error("Element with id 'score-value' not found");
+  }
 }
 updateScore(10);
-
-//fonction pour depllacer le personnage
-function moveCharacter(direction) {
-  // Déplacer le personnage horizontalement
-  // Mettre à jour la position du personnage en fonction de la direction
-}
 
 //Fonction pour generer un objet qui tombe
 function generateFallingObject() {

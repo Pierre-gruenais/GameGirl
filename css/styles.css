@@ -36,7 +36,7 @@ h1 {
   background-color: black;
   padding: 5px 10 px;
 }
-#character {
+#lifes{
   position: fixed;
   top:10px;
    /* center:10px;*/
@@ -45,11 +45,28 @@ h1 {
   background-color: black;
   padding: 5px 10 px;
 }
+#character{
+  position: absolute;
+  bottom: 20px; /*position de depart bas*/
+  left: 50%; /*centre horizontal*/
+  transform: translatex(-50%);
 
-canvas {
+}
+#character img {
+  width: 200px; /*taille personnage*/
+  height: auto;
+}
+
+#game-canvas {
   display: block;
   margin: 0 auto;
   border: 1px solid #000;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* Placer le canvas derrière les autres éléments */
 }
 
 /* Styles pour les appareils de taille moyenne */

@@ -10,14 +10,19 @@
   <h1>GameGirl</h1>
   <div id="level">Level: <span id="level-value">0</span></div>
   <div id="score">Score: <span id="score-value">0</span></div>
-  <div id="character">Character: <span id="Character-value">0</span></div>
+  <div id="lifes">lifes: <span id="lifes-value">0</span></div>
 
-  <div id="character"></div>
+  <div id="character">
+    <img src="../src/assets/images/perso.png" alt="character" id="character-img">
+  </div>
 
      <!-- Elements représentant les objets qui tombent -->
         <!-- Ils peuvent être générés dynamiquement en JavaScript -->
-  <canvas id="script.js"></script>
+  
+    <canvas id="game-canvas"></canvas>
 
+    <script src="../js/main.js"></script>
+    <script src="../js/game.js"></script>
 
 </body>
 </html>
