@@ -1,0 +1,107 @@
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0%;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  box-sizing: border-box; /* Inclure la bordure dans les dimensions calculées */
+  
+}
+#background-wrapper{
+  /*height: 100%;
+  width: 100%;*/
+  position: absolute;
+  top: 0px; /* Marge en haut */
+  left: 0px; /* Marge à gauche */
+  right: 0px; /* Marge à droite */
+  bottom: 0px; /* Marge en bas */
+  /*background-color: #e8b0e1;*/
+  background-image: url('/src/assets/images/background 2.jpg') ;
+  background-size:cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  
+  /*box-sizing: border-box; /* Inclure la bordure dans les dimensions calculées */
+ /* padding: 20px;
+  overflow: hidden;*/
+  
+}
+
+#game-container {
+  border: 5px solid white; /* Bordure autour de la zone de jeu */
+  width: 800px; /* Largeur de la zone de jeu */
+  height: 600px; /* Hauteur de la zone de jeu */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #000;
+ 
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  overflow: hidden;
+}
+
+#game-area {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+h1 {
+  text-align: center;
+  margin-top: 0;
+  font-size: 2em;
+  color: rgb(200, 99, 247);
+  position: fixed;
+  top:10px;
+  width:100%;
+}
+
+#score, #level, #lives {
+  position: fixed;
+  font-size: 24px;
+  color: white;
+  background-color: rgb(200, 99, 247);
+  padding: 5px 10px;
+}
+
+#score {
+  top: 50px;
+  right: 10px;
+}
+
+#level {
+  top: 50px;
+  left: 10px;
+}
+
+#lives {
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  
+}
+
+#character {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#character img {
+  width: 200px; /* Taille du personnage */
+  height: auto;
+}
+
+#game-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* Placer le canvas derrière les autres éléments */
+}
