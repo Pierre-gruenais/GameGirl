@@ -1,46 +1,38 @@
-html, body {
+html,
+body {
   height: 100%;
   width: 100%;
-  margin: 0%;
+  margin: 0;
   padding: 0;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  box-sizing: border-box; /* Inclure la bordure dans les dimensions calculées */
-  
+  box-sizing: border-box;
 }
-#background-wrapper{
-  /*height: 100%;
-  width: 100%;*/
+
+#background-wrapper {
   position: absolute;
-  top: 0px; /* Marge en haut */
-  left: 0px; /* Marge à gauche */
-  right: 0px; /* Marge à droite */
-  bottom: 0px; /* Marge en bas */
-  /*background-color: #e8b0e1;*/
-  background-image: url('/src/assets/images/background 2.jpg') ;
-  background-size:cover;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("/src/assets/images/background 2.jpg");
+  background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  
-  /*box-sizing: border-box; /* Inclure la bordure dans les dimensions calculées */
- /* padding: 20px;
-  overflow: hidden;*/
-  
 }
 
 #game-container {
-  border: 5px solid white; /* Bordure autour de la zone de jeu */
-  width: 800px; /* Largeur de la zone de jeu */
-  height: 600px; /* Hauteur de la zone de jeu */
+  border: 5px solid white;
+  width: 80vw;
+  max-width: 800px;
+  height: 60vh;
+  max-height: 600px;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #000;
- 
-  background-size: cover;
-  background-position: center;
   position: relative;
   overflow: hidden;
 }
@@ -50,6 +42,7 @@ html, body {
   width: 100%;
   height: 100%;
   overflow: hidden;
+  border: 2px solid green; /* Bordure temporaire pour débogage */
 }
 
 h1 {
@@ -58,13 +51,15 @@ h1 {
   font-size: 2em;
   color: rgb(200, 99, 247);
   position: fixed;
-  top:10px;
-  width:100%;
+  top: 10px;
+  width: 100%;
 }
 
-#score, #level, #lives {
+#score,
+#level,
+#lives {
   position: fixed;
-  font-size: 24px;
+  font-size: 1.2em;
   color: white;
   background-color: rgb(200, 99, 247);
   padding: 5px 10px;
@@ -84,24 +79,45 @@ h1 {
   top: 50px;
   left: 50%;
   transform: translateX(-50%);
-  
 }
 
 #character {
   position: absolute;
-  bottom: 20px;
+  bottom: 10%; /* Positionne le personnage à une distance relative du bas */
   left: 50%;
   transform: translateX(-50%);
+  z-index: 2;
+  border: 2px solid blue; /* Bordure temporaire pour débogage */
 }
 
 #character img {
-  width: 200px; /* Taille du personnage */
+  width: 20vw; /* Taille du personnage */
+  max-width: 200px;
   height: auto;
 }
 
 #game-canvas {
-  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  z-index: -1; /* Placer le canvas derrière les autres éléments */
+  z-index: 1;
+  /* border: 2px solid red; /* Bordure temporaire pour débogage */
+}
+
+/* Media Queries */
+@media (max-width: 600px) {
+  #game-container {
+    width: 90vw;
+    height: 70vh;
+  }
+  h1 {
+    font-size: 1.5em;
+  }
+  #score,
+  #level,
+  #lives {
+    width: 30vw;
+  }
 }
