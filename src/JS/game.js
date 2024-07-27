@@ -1,11 +1,13 @@
 document.addEventListener("DOMContentLoaded", () => {
   const character = document.getElementById("character");
-  const gameArea = document.getElementById("game-area");
+  //const gameArea = document.getElementById("game-area");
   const gameCanvas = document.getElementById("game-canvas");
+  const bottomLimit = document.getElementById("bottom-limit");
   const stepSize = 30; // Taille de l'étape de déplacement en pixels
 
   // Vérifie si les éléments existent
-  if (!character || !gameArea || !gameCanvas) {
+  if (!character || !gameCanvas || !bottomLimit) {
+    // && !gameArea
     console.error("Character, game area, or game canvas element not found");
     return;
   }
@@ -13,18 +15,17 @@ document.addEventListener("DOMContentLoaded", () => {
   // Fonction pour redimensionner le canvas
   function resizeCanvas() {
     if (
-      gameCanvas instanceof HTMLCanvasElement &&
-      gameArea instanceof HTMLElement
+      gameCanvas instanceof HTMLCanvasElement // && gameArea instanceof HTMLElement
     ) {
-      gameCanvas.width = gameArea.clientWidth;
-      gameCanvas.height = gameArea.clientHeight;
+      gameCanvas.width = window.innerWidth; //gameArea.clientWidth;
+      gameCanvas.height = window.innerHeight; //gameArea.clientHeight;
     }
   }
 
   // Fonction pour initialiser la position du personnage
   function initializeCharacterPosition() {
-    if (character && gameArea) {
-      const gameAreaRect = gameArea.getBoundingClientRect();
+    if (character && gameCanvas /* && gameArea */) {
+      const gameAreaRect = gameCanvas.getBoundingClientRect(); //gameArea.getBoundingClientRect();
       const characterRect = character.getBoundingClientRect();
 
       // Positionne le personnage au bas de la zone de jeu, centré horizontalement
@@ -39,13 +40,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Fonction pour déplacer le personnage
   function moveCharacter(direction) {
-    if (character && gameArea) {
+    if (character && gameCanvas /* && gameArea */) {
       // Récupère la position actuelle du personnage
       let left = parseInt(window.getComputedStyle(character).left, 10);
-      let top = parseInt(window.getComputedStyle(character).top, 10);
+      ///let top = parseInt(window.getComputedStyle(character).top, 10);
 
       const characterRect = character.getBoundingClientRect();
-      const gameAreaRect = gameArea.getBoundingClientRect();
+      const gameAreaRect = gameCanvas.getBoundingClientRect(); //gameArea.getBoundingClientRect();
+      const bottomLimitRect = bottomLimit
+        ? bottomLimit.getBoundingClientRect()
+        : { top: gameCanvas.getBoundingClientRect().bottom };
 
       if (direction === "left" && characterRect.left > gameAreaRect.left) {
         // Déplace le personnage à gauche
@@ -59,19 +63,19 @@ document.addEventListener("DOMContentLoaded", () => {
           left + stepSize,
           gameAreaRect.width - characterRect.width
         )}px`;
-      } else if (direction === "up" && characterRect.top > gameAreaRect.top) {
+      } /*else if (direction === "up" && characterRect.top > gameAreaRect.top) {
         // Déplace le personnage vers le haut
         character.style.top = `${Math.max(top - stepSize, 0)}px`;
-      } else if (
+      } // Déplace le personnage vers le bas, mais limite sa descente
+      else if (
         direction === "down" &&
-        characterRect.bottom < gameAreaRect.bottom
+        characterRect.bottom < bottomLimitRect.top
       ) {
-        // Déplace le personnage vers le bas
         character.style.top = `${Math.min(
           top + stepSize,
-          gameAreaRect.height - characterRect.height
+          bottomLimitRect.top - characterRect.height
         )}px`;
-      }
+      }*/
     }
   }
 

@@ -15,17 +15,19 @@
     <div id="lives">Lifes: <span id="lifes-value">0</span></div>
     <div id="score">Score: <span id="score-value">0</span></div>
     <!--<div id="game-container">-->
-    <div id="game-area">
+    <!--<div id="game-area">-->
+      <canvas id="game-canvas"></canvas>
       <div id="character">
         <img src="assets/images/perso.png" alt="character" id="character-img" />
       </div>
-      
+      <div id="bottom-limit"></div> <!-- Limite invisible ajoutée -->
     <!--</div>-->
   
   <!--</div>-->
   </div>
 
-  <canvas id="game-canvas"></canvas>
+  
+  
     <script src="JS/main.js"></script>
     <script src="JS/game.js"></script>
   </body>
