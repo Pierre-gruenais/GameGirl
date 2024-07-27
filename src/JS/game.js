@@ -12,7 +12,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Fonction pour redimensionner le canvas
   function resizeCanvas() {
-    if (gameCanvas instanceof HTMLCanvasElement && gameArea instanceof HTMLElement) {
+    if (
+      gameCanvas instanceof HTMLCanvasElement &&
+      gameArea instanceof HTMLElement
+    ) {
       gameCanvas.width = gameArea.clientWidth;
       gameCanvas.height = gameArea.clientHeight;
     }
@@ -25,8 +28,12 @@ document.addEventListener("DOMContentLoaded", () => {
       const characterRect = character.getBoundingClientRect();
 
       // Positionne le personnage au bas de la zone de jeu, centré horizontalement
-      character.style.left = `${(gameAreaRect.width - characterRect.width) / 2}px`;
-      character.style.top = `${gameAreaRect.height - characterRect.height - 10}px`;
+      character.style.left = `${
+        (gameAreaRect.width - characterRect.width) / 2
+      }px`;
+      character.style.top = `${
+        gameAreaRect.height - characterRect.height - 10
+      }px`;
     }
   }
 
@@ -43,15 +50,27 @@ document.addEventListener("DOMContentLoaded", () => {
       if (direction === "left" && characterRect.left > gameAreaRect.left) {
         // Déplace le personnage à gauche
         character.style.left = `${Math.max(left - stepSize, 0)}px`;
-      } else if (direction === "right" && characterRect.right < gameAreaRect.right) {
+      } else if (
+        direction === "right" &&
+        characterRect.right < gameAreaRect.right
+      ) {
         // Déplace le personnage à droite
-        character.style.left = `${Math.min(left + stepSize, gameAreaRect.width - characterRect.width)}px`;
+        character.style.left = `${Math.min(
+          left + stepSize,
+          gameAreaRect.width - characterRect.width
+        )}px`;
       } else if (direction === "up" && characterRect.top > gameAreaRect.top) {
         // Déplace le personnage vers le haut
         character.style.top = `${Math.max(top - stepSize, 0)}px`;
-      } else if (direction === "down" && characterRect.bottom < gameAreaRect.bottom) {
+      } else if (
+        direction === "down" &&
+        characterRect.bottom < gameAreaRect.bottom
+      ) {
         // Déplace le personnage vers le bas
-        character.style.top = `${Math.min(top + stepSize, gameAreaRect.height - characterRect.height)}px`;
+        character.style.top = `${Math.min(
+          top + stepSize,
+          gameAreaRect.height - characterRect.height
+        )}px`;
       }
     }
   }
