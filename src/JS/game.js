@@ -1,14 +1,24 @@
-const moveLeftSound = new Audio("/src/assets/sound/button.mp3");
-const moveRightSound = new Audio("/src/assets/sound/button.mp3");
+//const moveLeftSound = new Audio("/src/assets/sound/move.mp3");
+//const moveRightSound = new Audio("/src/assets/sound/move.mp3");
 
 document.addEventListener("DOMContentLoaded", () => {
   const character = document.getElementById("character");
   //const gameArea = document.getElementById("game-area");
   const gameCanvas = document.getElementById("game-canvas");
   const bottomLimit = document.getElementById("bottom-limit");
+  const backgroundMusic = document.getElementById("background-music");
+
   const stepSize = 50; // Taille de l'étape de déplacement en pixels
   //const objectFallSpeed = 2; // Vitesse de chute des objets en pixels par frame
 
+  //jouer la musique de fond
+  if (backgroundMusic instanceof HTMLAudioElement) {
+    backgroundMusic.play();
+  } else {
+    console.error(
+      "Element with id 'background-music' is not an HTMLAudioElement"
+    );
+  }
   // Vérifie si les éléments existent
   if (!character || !gameCanvas || !bottomLimit) {
     // && !gameArea
@@ -57,7 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (direction === "left" && characterRect.left > gameAreaRect.left) {
         // Déplace le personnage à gauche
         character.style.left = `${Math.max(left - stepSize, 0)}px`;
-        moveLeftSound.play();
+       // moveLeftSound.play();
       } else if (
         direction === "right" &&
         characterRect.right < gameAreaRect.right
@@ -67,9 +77,9 @@ document.addEventListener("DOMContentLoaded", () => {
           left + stepSize,
           gameAreaRect.width - characterRect.width
         )}px`;
-        moveRightSound.play();
+        //moveRightSound.play();
       }
-      // Retiré la gestion du saut
+      // gestion du saut
       /* else if (direction === "up" && characterRect.top > gameAreaRect.top) {
         // Déplace le personnage vers le haut
         character.style.top = `${Math.max(top - stepSize, 0)}px`;
@@ -86,7 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Retiré la fonction de saut
+  // fonction de saut
   // function jump(timestamp) {
   //   if (!character || !gameCanvas) return; // Vérification de nullité
 

@@ -56,11 +56,23 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 1;/* Assure que les objets tombants sont au-dessus */
+  z-index: 1; /* Assure que les objets tombants sont au-dessus */
   background-color: transparent;
   border: 2px solid red; /* Bordure temporaire pour débogage */
 }
-
+.falling-object,
+.malus-object {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+ /* background-image: url("../assets/images/donut.png");*/
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: 2px solid white;
+  top: 0;
+  
+}
 h1 {
   text-align: center;
   margin-top: 0;
@@ -111,17 +123,7 @@ h1 {
   max-width: 200px;
   height: auto;
 }
-/*.falling-object {
-  position: absolute;  Doit être positionné absolument 
-  width: 20px; /* Largeur visible 
-  height: 20px; /* Hauteur visible 
-  color: blueviolet;
-  background-image: url("/src/assets/images/bonbon.jpg");
-  background-size: cover;
-  background-position: center;
-  border: px solid white; /* Bordure pour une meilleure visibilité 
-  z-index: 2; /* Assure que les objets sont au-dessus du canvas 
-}*/
+
 
 #bottom-limit {
   position: absolute;
@@ -148,3 +150,4 @@ h1 {
     width: 30vw;
   }
 }
+

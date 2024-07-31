@@ -3,8 +3,14 @@
 document.addEventListener("DOMContentLoaded", () => {
   const gameCanvas = document.getElementById("game-canvas");
   const ctx = gameCanvas.getContext("2d");
-  const objectFallSpeed = 0.5; // Vitesse de chute des objets en pixels par frame
-  const objectSize = 50; // Taille des objets tombants
+  const objectFallSpeed = 2; // Vitesse de chute des objets en pixels par frame
+  const images = [
+    "assets/images/bonbon.png",
+    "assets/images/bonboncoeur.png",
+    "assets/images/donut.png",
+  ];
+  const malusImageUrl = "assets/images/carotte.png"; 
+  
 
   let score = 0; // initialiser le score
 
@@ -24,57 +30,100 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error("Element with id 'score-value' not found");
     }
   }
+
+
   updateScore(0);
 
-  // Charger l'image
-  const objectImage = new Image();
-  objectImage.src = "/src/assets/images/bonbon.jpg"; // Ajustez le chemin selon la structure de votre projet
 
-  // liste des objets tombants
-  let fallingObjects = [];
 
-  //Fonction pour generer un objet qui tombe
-  function generateFallingObject() {
-    return {
-      x: Math.random() * gameCanvas.clientWidth,
-      y: 0,
-      width: objectSize,
-      height: objectSize,
-      speed: objectFallSpeed,
-    };
+  function createFallingObject() {
+    const fallingObject = document.createElement("div");
+    fallingObject.className = "falling-object";
+
+    //selectionne une image aléatoire
+    const randomImage = images[Math.floor(Math.random() * images.length)];
+    fallingObject.style.backgroundImage = `url(${randomImage})`;
+
+    //positionne l'objet à une position horizontale aléatoire
+    fallingObject.style.left = `${Math.random() * (gameCanvas.clientWidth - 50)}px`; // Position aléatoire sur l'axe X
+    document.body.appendChild(fallingObject);
+
+    let top = 0;
+    const fallInterval = setInterval(() => {
+      top += objectFallSpeed;
+      fallingObject.style.top = `${top}px`;
+
+      // supprime l'objet lorsqu'il atteint le bas
+      if (top > window.innerHeight) {
+        fallingObject.remove();
+        clearInterval(fallInterval);
+      }
+      detectCollisions();
+    }, 1000 / 60); // 60 FPS
   }
-  // Fonction pour animer les objets tombants
-  function animateFallingObjects() {
-    ctx.clearRect(0, 0, gameCanvas.width, gameCanvas.height); // Efface le canvas
-    fallingObjects.forEach((obj) => {
-      obj.y += obj.speed;
-      ctx.fillStyle = "blueviolet"; // Couleur des objets tombants
-      ctx.fillRect(obj.x, obj.y, obj.width, obj.height); // Dessine l'objet
-    });
-    // Supprime les objets qui sont sortis du canvas
-    fallingObjects = fallingObjects.filter((obj) => obj.y < gameCanvas.height);
-    requestAnimationFrame(animateFallingObjects);
-  }
+  function createMalusObject(){
+    const malusObject = document.createElement("div");
+      malusObject.className = "malus-object";
+  
+      //utilise l'image specifiée pour l'objet malus
+      malusObject.style.backgroundImage = `url(${malusImageUrl})`;
+  
+      
+    malusObject.style.left = `${Math.random() * (gameCanvas.width - 50)}px`;
+    document.body.appendChild(malusObject);
+  
+    let top = 0;
+    const fallInterval = setInterval(() => {
+      top += objectFallSpeed;
+      malusObject.style.top = `${top}px`;
+  
+      if (top > gameCanvas.height){
+        malusObject.remove();
+        clearInterval(fallInterval)
+      }
+      detectCollisions();
+    }, 1000 / 60);
+    }
 
-  // generer un nouvel objet qui tombe toutes les 20 secondes
-  setInterval(() => {
-    fallingObjects.push(generateFallingObject());
-  }, 1000);
-  // Démarrer l'animation après que l'image est chargée
-  objectImage.onload = () => {
-    animateFallingObjects();
-  };
 
-  //Démarre l'animation
-  animateFallingObjects();
+
+  // Crée un nouvel objet toutes les secondes
+  setInterval(createFallingObject, 5000);
+  
+  // Crée un objet malus toutes les 10 secondes
+  setInterval(createMalusObject, 10000);
 });
+
 
 console.log("Script JavaScript chargé avec succès !");
 //Fonction pour detecter les collisions entre le personnage et les objets
 function detectCollisions() {
+  const fallingObjects = document.querySelectorAll(".falling-object");
+  const malusObjects = document.querySelectorAll(".malus-object");
+
+  fallingObjects.forEach(fallingObject => {
+    const fallingRect = fallingObject.getBoundingClientRect();
+
+    // Vérifier si l'objet tombant entre en collision avec un objet malus
+    const collisionDetected = Array.from(malusObjects).some(malusObject => {
+      const malusRect = malusObject.getBoundingClientRect();
+      return(
+        fallingRect.left < malusRect.right &&
+          fallingRect.right > malusRect.left &&
+          fallingRect.top < malusRect.bottom &&
+          fallingRect.bottom > malusRect.top
+      );
+    });
+    if (collisionDetected) {
+      updateScore(-10); // Exemple : perdre 10 points pour chaque collision avec un malus
+      fallingObject.remove();
+    }
+  });
   // Vérifier si le personnage entre en collision avec un objet
   // Si oui, augmenter le score et supprimer l'objet de la scène
 }
+console.log("Script JavaScript chargé avec succès !");
+
 
 //utiliser des fonctions de minuterie
 // (comme setInterval) pour générer périodiquement des objets qui tombent.
