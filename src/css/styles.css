@@ -44,10 +44,11 @@ body {
 
 /*#game-area {
   position: relative;
-  width: 99vw;
-  height: 99vh;
+  width: 100vw;
+  height: 90vh;
   overflow: hidden;
-  border: 2px solid green;  Bordure temporaire pour débogage 
+   background-color: transparent; /* Fond noir pour mieux voir les objets
+ border: 2px solid green;  /*Bordure temporaire pour débogage 
 }*/
 #game-canvas {
   position: absolute;
@@ -55,7 +56,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 1;
+  z-index: 1;/* Assure que les objets tombants sont au-dessus */
   background-color: transparent;
   border: 2px solid red; /* Bordure temporaire pour débogage */
 }
@@ -110,6 +111,17 @@ h1 {
   max-width: 200px;
   height: auto;
 }
+/*.falling-object {
+  position: absolute;  Doit être positionné absolument 
+  width: 20px; /* Largeur visible 
+  height: 20px; /* Hauteur visible 
+  color: blueviolet;
+  background-image: url("/src/assets/images/bonbon.jpg");
+  background-size: cover;
+  background-position: center;
+  border: px solid white; /* Bordure pour une meilleure visibilité 
+  z-index: 2; /* Assure que les objets sont au-dessus du canvas 
+}*/
 
 #bottom-limit {
   position: absolute;
@@ -123,10 +135,10 @@ h1 {
 
 /* Media Queries */
 @media (max-width: 600px) {
-  #game-container {
+  /*#game-container {
     width: 90vw;
     height: 70vh;
-  }
+  }*/
   h1 {
     font-size: 1.5em;
   }
