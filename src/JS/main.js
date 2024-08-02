@@ -1,7 +1,13 @@
-// Initialiser le Score
-
 document.addEventListener("DOMContentLoaded", () => {
   const gameCanvas = document.getElementById("game-canvas");
+  if (!(gameCanvas instanceof HTMLCanvasElement)) {
+    console.error(
+      "Game canvas element not found or is not an HTMLCanvasElement"
+    );
+    return;
+  }
+  const backgroundMusic = document.getElementById("background-music");
+  const character = document.getElementById("character");
   const ctx = gameCanvas.getContext("2d");
   const objectFallSpeed = 2; // Vitesse de chute des objets en pixels par frame
   const images = [
@@ -9,18 +15,41 @@ document.addEventListener("DOMContentLoaded", () => {
     "assets/images/bonboncoeur.png",
     "assets/images/donut.png",
   ];
-  const malusImageUrl = "assets/images/carotte.png"; 
-  
+  const malusImageUrl = "assets/images/carotte.png";
 
-  let score = 0; // initialiser le score
+  // nombre de vies au demarrage
+  let lives = 3;
+  let previousLives = lives;
+  // initialise le score à 0
+  let score = 0;
 
-  // Vérifie si les éléments existent
-  if (!gameCanvas) {
-    console.error("Game canvas element not found");
-    return;
+  function updateLives() {
+    const livesContainer = document.getElementById("lives-container");
+    if (livesContainer) {
+      livesContainer.innerHTML = "";
+      for (let i = 0; i < lives; i++) {
+        const lifeIcon = document.createElement("img");
+        lifeIcon.src = "assets/images/coeur(1).png"; // Chemin de l'image de vie
+        lifeIcon.className = "life-icon";
+        livesContainer.appendChild(lifeIcon);
+      }
+      if (lives < previousLives) {
+        // ajout de l'animation à l'icône de vie perdue
+        const lostLifeIcon = livesContainer.children[lives];
+        if (lostLifeIcon) {
+          lostLifeIcon.classList.add("lost-life");
+          // supprime l'icône après l'animation
+          setTimeout(() => {
+            lostLifeIcon.remove();
+          }, 500);
+        }
+      }
+      previousLives = lives;
+    } else {
+      console.error("Element with id 'lives-container' not found");
+    }
   }
-
-  //fonction pour mettre a jour le score et afficher dans l'interface utilisateur
+  // Fonction pour mettre à jour le score et afficher dans l'interface utilisateur
   function updateScore(points) {
     score += points;
     const scoreElement = document.getElementById("score-value");
@@ -31,21 +60,51 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // Fonction pour détecter les collisions entre le personnage et les objets
+  function detectCollisions(fallingObject) {
+    if (!character || !(character instanceof HTMLElement)) {
+      console.error("Character element not found or is not an HTMLElement");
+      return;
+    }
 
-  updateScore(0);
+    const characterRect = character.getBoundingClientRect();
+    const objectRect = fallingObject.getBoundingClientRect();
 
+    if (
+      characterRect.left < objectRect.right &&
+      characterRect.right > objectRect.left &&
+      characterRect.top < objectRect.bottom &&
+      characterRect.bottom > objectRect.top
+    ) {
+      // Collision détectée
+      if (fallingObject.className === "falling-object") {
+        // Objet normal = augmente le score
+        updateScore(1);
+      } else if (fallingObject.className === "malus-object") {
+        // Objet malus - réduit les vies
+        lives -= 1;
+        updateLives();
 
+        if (lives <= 0) {
+          alert("Game Over!");
+          // Ajouter une logique de réinitialisation du jeu ici
+        }
+      }
+      fallingObject.remove();
+    }
+  }
 
   function createFallingObject() {
     const fallingObject = document.createElement("div");
     fallingObject.className = "falling-object";
 
-    //selectionne une image aléatoire
+    // Sélectionne une image aléatoire
     const randomImage = images[Math.floor(Math.random() * images.length)];
     fallingObject.style.backgroundImage = `url(${randomImage})`;
-
-    //positionne l'objet à une position horizontale aléatoire
-    fallingObject.style.left = `${Math.random() * (gameCanvas.clientWidth - 50)}px`; // Position aléatoire sur l'axe X
+    fallingObject.style.position = "absolute"; // Position absolue pour que les objets tombent
+    fallingObject.style.left = `${
+      Math.random() * (gameCanvas.clientWidth - 50)
+    }px`;
     document.body.appendChild(fallingObject);
 
     let top = 0;
@@ -53,79 +112,59 @@ document.addEventListener("DOMContentLoaded", () => {
       top += objectFallSpeed;
       fallingObject.style.top = `${top}px`;
 
-      // supprime l'objet lorsqu'il atteint le bas
+      // Supprime l'objet lorsqu'il atteint le bas
       if (top > window.innerHeight) {
         fallingObject.remove();
         clearInterval(fallInterval);
       }
-      detectCollisions();
+      detectCollisions(fallingObject);
     }, 1000 / 60); // 60 FPS
   }
-  function createMalusObject(){
+
+  function createMalusObject() {
     const malusObject = document.createElement("div");
-      malusObject.className = "malus-object";
-  
-      //utilise l'image specifiée pour l'objet malus
-      malusObject.style.backgroundImage = `url(${malusImageUrl})`;
-  
-      
-    malusObject.style.left = `${Math.random() * (gameCanvas.width - 50)}px`;
+    malusObject.className = "malus-object";
+
+    // Utilise l'image spécifiée pour l'objet malus
+    malusObject.style.backgroundImage = `url(${malusImageUrl})`;
+    malusObject.style.position = "absolute"; // Position absolue pour que les objets tombent
+    malusObject.style.left = `${
+      Math.random() * (gameCanvas.clientWidth - 50)
+    }px`;
     document.body.appendChild(malusObject);
-  
+
     let top = 0;
     const fallInterval = setInterval(() => {
       top += objectFallSpeed;
       malusObject.style.top = `${top}px`;
-  
-      if (top > gameCanvas.height){
+
+      // Supprime l'objet lorsqu'il atteint le bas
+      if (top > window.innerHeight) {
         malusObject.remove();
-        clearInterval(fallInterval)
+        clearInterval(fallInterval);
       }
-      detectCollisions();
+      detectCollisions(malusObject);
     }, 1000 / 60);
-    }
+  }
 
-
-
-  // Crée un nouvel objet toutes les secondes
+  // Crée un nouvel objet toutes les 5 secondes
   setInterval(createFallingObject, 5000);
-  
+
   // Crée un objet malus toutes les 10 secondes
   setInterval(createMalusObject, 10000);
+
+  // Initialise les vies et le score dans l'interface utilisateur
+  updateLives();
+  updateScore(0);
+
+  // Joue la musique de fond
+  if (backgroundMusic instanceof HTMLAudioElement) {
+    backgroundMusic.play();
+  } else {
+    console.error(
+      "Element with id 'background-music' is not an HTMLAudioElement"
+    );
+  }
+
+  console.log("Script JavaScript chargé avec succès !");
 });
-
-
-console.log("Script JavaScript chargé avec succès !");
-//Fonction pour detecter les collisions entre le personnage et les objets
-function detectCollisions() {
-  const fallingObjects = document.querySelectorAll(".falling-object");
-  const malusObjects = document.querySelectorAll(".malus-object");
-
-  fallingObjects.forEach(fallingObject => {
-    const fallingRect = fallingObject.getBoundingClientRect();
-
-    // Vérifier si l'objet tombant entre en collision avec un objet malus
-    const collisionDetected = Array.from(malusObjects).some(malusObject => {
-      const malusRect = malusObject.getBoundingClientRect();
-      return(
-        fallingRect.left < malusRect.right &&
-          fallingRect.right > malusRect.left &&
-          fallingRect.top < malusRect.bottom &&
-          fallingRect.bottom > malusRect.top
-      );
-    });
-    if (collisionDetected) {
-      updateScore(-10); // Exemple : perdre 10 points pour chaque collision avec un malus
-      fallingObject.remove();
-    }
-  });
-  // Vérifier si le personnage entre en collision avec un objet
-  // Si oui, augmenter le score et supprimer l'objet de la scène
-}
-console.log("Script JavaScript chargé avec succès !");
-
-
-//utiliser des fonctions de minuterie
-// (comme setInterval) pour générer périodiquement des objets qui tombent.
-//Pour la détection de collision, vous devrez vérifier si les rectangles englobants du personnage et des objets se chevauchent.
-//Vous devrez utiliser des événements JavaScript pour détecter les entrées utilisateur pour le déplacement du personnage.

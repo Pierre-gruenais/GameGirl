@@ -6,19 +6,10 @@ document.addEventListener("DOMContentLoaded", () => {
   //const gameArea = document.getElementById("game-area");
   const gameCanvas = document.getElementById("game-canvas");
   const bottomLimit = document.getElementById("bottom-limit");
-  const backgroundMusic = document.getElementById("background-music");
 
   const stepSize = 50; // Taille de l'étape de déplacement en pixels
   //const objectFallSpeed = 2; // Vitesse de chute des objets en pixels par frame
 
-  //jouer la musique de fond
-  if (backgroundMusic instanceof HTMLAudioElement) {
-    backgroundMusic.play();
-  } else {
-    console.error(
-      "Element with id 'background-music' is not an HTMLAudioElement"
-    );
-  }
   // Vérifie si les éléments existent
   if (!character || !gameCanvas || !bottomLimit) {
     // && !gameArea
@@ -67,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (direction === "left" && characterRect.left > gameAreaRect.left) {
         // Déplace le personnage à gauche
         character.style.left = `${Math.max(left - stepSize, 0)}px`;
-       // moveLeftSound.play();
+        // moveLeftSound.play();
       } else if (
         direction === "right" &&
         characterRect.right < gameAreaRect.right

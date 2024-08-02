@@ -84,29 +84,59 @@ h1 {
 }
 
 #score,
-#level,
-#lives {
+#level, 
+#lives-container 
+
+{
   position: fixed;
   font-size: 1.2em;
   color: white;
-  background-color: rgb(200, 99, 247);
+  
   padding: 5px 10px;
 }
 
 #score {
   top: 50px;
   right: 10px;
+  background-color: rgb(200, 99, 247);
 }
 
 #level {
   top: 50px;
   left: 10px;
+  background-color: rgb(200, 99, 247);
 }
 
-#lives {
+#lives-container {
+ 
   top: 50px;
   left: 50%;
   transform: translateX(-50%);
+}
+
+.life-icon{
+  width: 30px;
+  height: 30px;
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+
+}
+
+.life-icon.lost-life {
+  animation: lostLifeAnimation 0.5s forwards;
+}
+@keyframes lostLifeAnimation {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0;
+  }
 }
 
 #character {
