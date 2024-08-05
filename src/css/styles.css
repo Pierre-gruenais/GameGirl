@@ -108,9 +108,8 @@ body {
 .falling-object,
 .malus-object {
   position: absolute;
-  width: 50px;
-  height: 50px;
-  /* background-image: url("../assets/images/donut.png");*/
+  width: 10vw;
+  height: 10vw;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -120,7 +119,7 @@ body {
 h1 {
   text-align: center;
   margin-top: 0;
-  font-size: 2em;
+  font-size: 1.5em;
   color: rgb(200, 99, 247);
   position: fixed;
   top: 10px;
@@ -190,7 +189,7 @@ h1 {
 
 #character img {
   width: 20vw; /* Taille du personnage */
-  max-width: 200px;
+  max-width: 150px;
   height: auto;
 }
 
@@ -204,18 +203,56 @@ h1 {
   pointer-events: none; /* Ignore les événements de la souris */
 }
 
-/* Media Queries */
-@media (max-width: 600px) {
+/*Media queries pour les petits ecrans*/
+@media (orienation: portrait){
+  #character img {
+    width: 40vw; /* Ajusté pour les écrans en mode portrait */
+    max-width: 200px; /* Limite la taille maximale */
+  }
+
+  .falling-object,
+  .malus-object {
+    width: 15vw; /* Ajusté pour les écrans en mode portrait */
+    height: 15vw; /* Maintient un aspect ratio carré */
+  }
+}
+/* Styles pour les écrans en mode paysage */
+@media (orientation: landscape) {
+  #character img {
+    width: 20vw; /* Ajusté pour les écrans en mode paysage */
+    max-width: 150px; /* Limite la taille maximale */
+  }
+
+  .falling-object,
+  .malus-object {
+    width: 10vw; /* Ajusté pour les écrans en mode paysage */
+    height: 10vw; /* Maintient un aspect ratio carré */
+  }
+}
+/* Media Queries Styles pour les écrans plus larges*/
+@media (max-width: 601px) {
   /*#game-container {
     width: 90vw;
     height: 70vh;
   }*/
   h1 {
-    font-size: 1.5em;
+    font-size: 2em;
   }
   #score,
   #level,
-  #lives {
-    width: 30vw;
+  #lives-container {
+    /* width: 30vw;*/
+    font-size: 1.2em;
+  }
+
+  #character img {
+    width: 15vw; /* Ajusté pour les écrans plus grands */
+    max-width: 200px; /* Limite la taille maximale */
+  }
+}
+@media (min-width: 1024px) {
+  #character img {
+    width: 10vw; /* Réduit la taille sur les très grands écrans */
+    max-width: 250px;
   }
 }

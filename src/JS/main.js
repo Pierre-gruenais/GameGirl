@@ -11,6 +11,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const introOverlay = document.getElementById("intro-overlay");
 
   const backgroundMusic = document.getElementById("background-music");
+  backgroundMusic.volume = 0.1;
+  
 
   const objectFallSpeed = 2; // Vitesse de chute des objets en pixels par frame
   const images = [
@@ -18,7 +20,10 @@ document.addEventListener("DOMContentLoaded", () => {
     "assets/images/bonboncoeur.png",
     "assets/images/donut.png",
   ];
-  const malusImageUrl = "assets/images/carotte.png";
+  const malusImageUrl = [
+    "assets/images/carotte.png",
+    "assets/images/poivron.png",
+  ];
 
   // nombre de vies au demarrage
   let lives = 3;
@@ -37,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
       backgroundMusic
         .play()
         .catch((err) => console.error("Failed to play background music:", err));
-      setInterval(createFallingObject, 5000);
+
       // Crée un nouvel objet toutes les 5 secondes
       setInterval(createFallingObject, 5000);
 
@@ -169,19 +174,26 @@ document.addEventListener("DOMContentLoaded", () => {
     malusObject.className = "malus-object";
 
     // Utilise l'image spécifiée pour l'objet malus
-    malusObject.style.backgroundImage = `url(${malusImageUrl})`;
+    const randomMalusImage =
+      malusImageUrl[Math.floor(Math.random() * malusImageUrl.length)];
+    malusObject.style.backgroundImage = `url(${randomMalusImage})`;
     malusObject.style.position = "absolute"; // Position absolue pour que les objets tombent
     malusObject.style.left = `${
       Math.random() * (gameCanvas.clientWidth - 50)
     }px`;
+    malusObject.style.top = "0px"; // les objets démarrent en haut de la fenêtre
     document.body.appendChild(malusObject);
 
     const fallSpeed = Math.random() * 2 + 1; // Vitesse de chute aléatoire entre 1 et 3 pixels par frame
+    const horizontalSpeed = Math.random() * 2 - 1;
 
     let top = 0;
+    let left = parseFloat(malusObject.style.left);
     const fallInterval = setInterval(() => {
-      top += objectFallSpeed;
+      top += fallSpeed;
+      left += horizontalSpeed; // Déplacement horizontal aléatoire
       malusObject.style.top = `${top}px`;
+      malusObject.style.left = `${left}px`;
 
       // Supprime l'objet lorsqu'il atteint le bas
       if (top > window.innerHeight) {
