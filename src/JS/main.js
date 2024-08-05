@@ -6,9 +6,12 @@ document.addEventListener("DOMContentLoaded", () => {
     );
     return;
   }
-  const backgroundMusic = document.getElementById("background-music");
-  const character = document.getElementById("character");
   const ctx = gameCanvas.getContext("2d");
+  const startButton = document.getElementById("start-button");
+  const introOverlay = document.getElementById("intro-overlay");
+
+  const backgroundMusic = document.getElementById("background-music");
+
   const objectFallSpeed = 2; // Vitesse de chute des objets en pixels par frame
   const images = [
     "assets/images/bonbon.png",
@@ -22,6 +25,39 @@ document.addEventListener("DOMContentLoaded", () => {
   let previousLives = lives;
   // initialise le score à 0
   let score = 0;
+
+  // Fonction pour démarrer le jeu
+  function startGame() {
+    if (introOverlay) {
+      introOverlay.style.display = "none"; // Cache le bandeau d'accueil
+      console.log("bandeau caché !");
+      // Ajoutez ici l'initialisation ou le démarrage du jeu
+      // Par exemple, vous pouvez commencer à créer des objets qui tombent, etc.
+      console.log("Jeu démarré !");
+      backgroundMusic
+        .play()
+        .catch((err) => console.error("Failed to play background music:", err));
+      setInterval(createFallingObject, 5000);
+      // Crée un nouvel objet toutes les 5 secondes
+      setInterval(createFallingObject, 5000);
+
+      // Crée un objet malus toutes les 10 secondes
+      setInterval(createMalusObject, 10000);
+
+      // Initialise les vies et le score dans l'interface utilisateur
+      updateLives();
+      updateScore(0);
+    } else {
+      console.error("l'element d'introOverlay est manquant.");
+    }
+  }
+
+  // Assurez-vous que les éléments existent avant de les utiliser
+  if (startButton && introOverlay) {
+    startButton.addEventListener("click", startGame);
+  } else {
+    console.error("Les éléments de l'intro n'ont pas été trouvés.");
+  }
 
   function updateLives() {
     const livesContainer = document.getElementById("lives-container");
@@ -105,12 +141,19 @@ document.addEventListener("DOMContentLoaded", () => {
     fallingObject.style.left = `${
       Math.random() * (gameCanvas.clientWidth - 50)
     }px`;
+    fallingObject.style.top = "0px"; // les objets demarrent en haut de la fenetre
     document.body.appendChild(fallingObject);
 
+    const fallSpeed = Math.random() * 2 + 1; //vitesse de chute aleatoire entre 1 et 3 par frame
+    const horizontalSpeed = Math.random() * 2 - 1; // Vitesse horizontale aléatoire entre -1 et 1 pixels par frame
+
     let top = 0;
+    let left = parseFloat(fallingObject.style.left);
     const fallInterval = setInterval(() => {
-      top += objectFallSpeed;
+      top += fallSpeed;
+      left += horizontalSpeed; // Déplacement horizontal aléatoire
       fallingObject.style.top = `${top}px`;
+      fallingObject.style.left = `${left}px`;
 
       // Supprime l'objet lorsqu'il atteint le bas
       if (top > window.innerHeight) {
@@ -133,6 +176,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }px`;
     document.body.appendChild(malusObject);
 
+    const fallSpeed = Math.random() * 2 + 1; // Vitesse de chute aléatoire entre 1 et 3 pixels par frame
+
     let top = 0;
     const fallInterval = setInterval(() => {
       top += objectFallSpeed;
@@ -146,16 +191,6 @@ document.addEventListener("DOMContentLoaded", () => {
       detectCollisions(malusObject);
     }, 1000 / 60);
   }
-
-  // Crée un nouvel objet toutes les 5 secondes
-  setInterval(createFallingObject, 5000);
-
-  // Crée un objet malus toutes les 10 secondes
-  setInterval(createMalusObject, 10000);
-
-  // Initialise les vies et le score dans l'interface utilisateur
-  updateLives();
-  updateScore(0);
 
   // Joue la musique de fond
   if (backgroundMusic instanceof HTMLAudioElement) {

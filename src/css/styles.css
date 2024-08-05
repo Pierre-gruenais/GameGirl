@@ -50,6 +50,51 @@ body {
    background-color: transparent; /* Fond noir pour mieux voir les objets
  border: 2px solid green;  /*Bordure temporaire pour débogage 
 }*/
+#intro-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8); /* Fond semi-transparent */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10; /* Assure que le bandeau est au-dessus des autres éléments */
+}
+
+#intro-content {
+  text-align: center;
+  color: white;
+  background: rgba(0, 0, 0, 0.9); /* Fond plus foncé pour le contenu */
+  padding: 20px;
+  border-radius: 10px;
+}
+
+#start-button {
+  padding: 10px 20px;
+  text-transform: uppercase;
+  border-radius: 8px;
+  font-size: 17px;
+  font-weight: 500;
+  color: #ffffff80;
+  text-shadow: none;
+  background: transparent;
+  cursor: pointer;
+  box-shadow: transparent;
+  border: 1px solid #ffffff80;
+  transition: 0.5s ease;
+  user-select: none;
+}
+
+#start-button:hover {
+  color: #ffffff;
+  background: #e3a0ec;
+  border: 1px solid #008cff;
+  text-shadow: 0 0 5px #008cff, 0 0 10px #008cff, 0 0 20px #008cff;
+  box-shadow: 0 0 5px #008cff, 0 0 20px #008cff, 0 0 50px #008cff,
+    0 0 100px #008cff;
+}
 #game-canvas {
   position: absolute;
   top: 0;
@@ -65,13 +110,12 @@ body {
   position: absolute;
   width: 50px;
   height: 50px;
- /* background-image: url("../assets/images/donut.png");*/
+  /* background-image: url("../assets/images/donut.png");*/
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  border: 2px solid white;
+  /*border: 2px solid white;*/
   top: 0;
-  
 }
 h1 {
   text-align: center;
@@ -84,14 +128,12 @@ h1 {
 }
 
 #score,
-#level, 
-#lives-container 
-
-{
+#level,
+#lives-container {
   position: fixed;
   font-size: 1.2em;
   color: white;
-  
+
   padding: 5px 10px;
 }
 
@@ -108,17 +150,15 @@ h1 {
 }
 
 #lives-container {
- 
   top: 50px;
   left: 50%;
   transform: translateX(-50%);
 }
 
-.life-icon{
+.life-icon {
   width: 30px;
   height: 30px;
   transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
-
 }
 
 .life-icon.lost-life {
@@ -145,7 +185,7 @@ h1 {
   left: 50%;
   transform: translateX(-50%);
   z-index: 2;
-  border: 2px solid blue; /* Bordure temporaire pour débogage */
+  /*border: 2px solid blue;*/ /* Bordure temporaire pour débogage */
 }
 
 #character img {
@@ -153,7 +193,6 @@ h1 {
   max-width: 200px;
   height: auto;
 }
-
 
 #bottom-limit {
   position: absolute;
@@ -180,4 +219,3 @@ h1 {
     width: 30vw;
   }
 }
-
