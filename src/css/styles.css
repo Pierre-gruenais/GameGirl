@@ -204,7 +204,7 @@ h1 {
 }
 
 /*Media queries pour les petits ecrans*/
-@media (orienation: portrait){
+@media (orienation: portrait) {
   #character img {
     width: 40vw; /* Ajusté pour les écrans en mode portrait */
     max-width: 200px; /* Limite la taille maximale */
