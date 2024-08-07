@@ -21,8 +21,10 @@ document.addEventListener("DOMContentLoaded", () => {
     "assets/images/donut.png",
   ];
   const malusImageUrl = [
-    "assets/images/carotte.png",
+    "assets/images/carotte 2.png",
     "assets/images/poivron.png",
+    "assets/images/epinards.png",
+    "assets/images/betterave.png",
   ];
 
   // nombre de vies au demarrage

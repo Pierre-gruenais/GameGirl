@@ -107,9 +107,11 @@ body {
 }
 .falling-object,
 .malus-object {
-  position: absolute;
-  width: 10vw;
-  height: 10vw;
+  /* position: absolute;*/
+  width: 8vw;
+  height: 8vw;
+  max-width: 80px;
+  max-height: 80px;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -188,7 +190,7 @@ h1 {
 }
 
 #character img {
-  width: 20vw; /* Taille du personnage */
+  width: 15vw; /* Taille du personnage */
   max-width: 150px;
   height: auto;
 }
@@ -206,29 +208,49 @@ h1 {
 /*Media queries pour les petits ecrans*/
 @media (orienation: portrait) {
   #character img {
-    width: 40vw; /* Ajusté pour les écrans en mode portrait */
-    max-width: 200px; /* Limite la taille maximale */
-  }
-
-  .falling-object,
-  .malus-object {
-    width: 15vw; /* Ajusté pour les écrans en mode portrait */
-    height: 15vw; /* Maintient un aspect ratio carré */
-  }
-}
-/* Styles pour les écrans en mode paysage */
-@media (orientation: landscape) {
-  #character img {
-    width: 20vw; /* Ajusté pour les écrans en mode paysage */
+    width: 30vw; /* Ajusté pour les écrans en mode portrait */
     max-width: 150px; /* Limite la taille maximale */
   }
 
   .falling-object,
   .malus-object {
-    width: 10vw; /* Ajusté pour les écrans en mode paysage */
-    height: 10vw; /* Maintient un aspect ratio carré */
+    width: 12vw; /* Ajusté pour les écrans en mode portrait */
+    height: 12vw; /* Maintient un aspect ratio carré */
+    max-width: 100px; /* Limite maximale */
+    max-height: 100px; /* Limite maximale */
   }
 }
+/* Styles pour les écrans en mode paysage */
+@media (orientation: landscape) {
+  #character img {
+    width: 15vw; /* Ajusté pour les écrans en mode paysage */
+    max-width: 150px; /* Limite la taille maximale */
+  }
+
+  .falling-object,
+  .malus-object {
+    width: 8vw; /* Ajusté pour les écrans en mode paysage */
+    height: 8vw; /* Maintient un aspect ratio carré */
+    max-width: 80px; /* Limite maximale */
+    max-height: 80px; /* Limite maximale */
+  }
+}
+/* Media queries pour les écrans plus petits */
+@media (max-width: 601px) {
+  #character img {
+    width: 20vw; /* Ajusté pour les écrans plus petits */
+    max-width: 120px; /* Limite maximale */
+  }
+
+  .falling-object,
+  .malus-object {
+    width: 10vw; /* Ajusté pour les écrans plus petits */
+    height: 10vw; /* Maintient un aspect ratio carré */
+    max-width: 80px; /* Limite maximale */
+    max-height: 80px; /* Limite maximale */
+  }
+}
+
 /* Media Queries Styles pour les écrans plus larges*/
 @media (max-width: 601px) {
   /*#game-container {
@@ -253,6 +275,13 @@ h1 {
 @media (min-width: 1024px) {
   #character img {
     width: 10vw; /* Réduit la taille sur les très grands écrans */
-    max-width: 250px;
+    max-width: 200px;
+  }
+  .falling-object,
+  .malus-object {
+    width: 6vw; /* Réduit la taille sur les très grands écrans */
+    height: 6vw; /* Maintient un aspect ratio carré */
+    max-width: 60px; /* Limite maximale */
+    max-height: 60px; /* Limite maximale */
   }
 }
