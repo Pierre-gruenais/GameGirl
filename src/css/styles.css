@@ -115,7 +115,7 @@ body {
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
-  border: 2px solid white;
+  /*border: 2px solid white;*/
   top: 0;
   /* Ajout pour gérer l'adaptation de l'image */
   object-fit: contain; /* Adaptation de l'image sans la tronquer */
