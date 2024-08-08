@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
  
 
  
-a
+
   // Redimensionne le canvas et initialise la position du personnage au chargement et lors du redimensionnement de la fenêtre
   window.addEventListener("resize", () => {
     // resizeCanvas();

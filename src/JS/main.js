@@ -12,19 +12,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const backgroundMusic = document.getElementById("background-music");
   backgroundMusic.volume = 0.1;
-  
 
   const objectFallSpeed = 2; // Vitesse de chute des objets en pixels par frame
   const images = [
-    "assets/images/bonbon.png",
-    "assets/images/bonboncoeur.png",
-    "assets/images/donut.png",
+    "src/assets/images/bonbon.png",
+    "src/assets/images/bonboncoeur.png",
+    "src/assets/images/donut.png",
+    "src/assets/images/Glace.png",
+    "src/assets/images/sucetteCoeur.png",
   ];
   const malusImageUrl = [
-    "assets/images/carotte 2.png",
-    "assets/images/poivron.png",
-    "assets/images/epinards.png",
-    "assets/images/betterave.png",
+    "src/assets/images/carotte-2.png",
+    "src/assets/images/poivron.png",
+    "src/assets/images/epinards.png",
+    "src/assets/images/betterave.png",
   ];
 
   // nombre de vies au demarrage
@@ -72,7 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
       livesContainer.innerHTML = "";
       for (let i = 0; i < lives; i++) {
         const lifeIcon = document.createElement("img");
-        lifeIcon.src = "assets/images/coeur(1).png"; // Chemin de l'image de vie
+        lifeIcon.src = "src/assets/images/coeur(1).png"; // Chemin de l'image de vie
         lifeIcon.className = "life-icon";
         livesContainer.appendChild(lifeIcon);
       }
@@ -162,11 +163,20 @@ document.addEventListener("DOMContentLoaded", () => {
       fallingObject.style.top = `${top}px`;
       fallingObject.style.left = `${left}px`;
 
+
+      // Vérifiez si l'objet a touché le bas
+    if (top > window.innerHeight - fallingObject.clientHeight) {
+      clearInterval(fallInterval);
+      fallingObject.classList.add("explosion"); // Ajouter la classe d'explosion
+      setTimeout(() => {
+        fallingObject.remove(); // Retirer l'objet après l'animation
+      }, 1000); // Durée de l'animation d'explosion
+    }
       // Supprime l'objet lorsqu'il atteint le bas
-      if (top > window.innerHeight) {
-        fallingObject.remove();
-        clearInterval(fallInterval);
-      }
+      //if (top > window.innerHeight) {
+      //  fallingObject.remove();
+      //  clearInterval(fallInterval);
+      //}
       detectCollisions(fallingObject);
     }, 1000 / 60); // 60 FPS
   }
@@ -197,14 +207,57 @@ document.addEventListener("DOMContentLoaded", () => {
       malusObject.style.top = `${top}px`;
       malusObject.style.left = `${left}px`;
 
+         // Vérifiez si l'objet a touché le bas
+    if (top > window.innerHeight - malusObject.clientHeight) {
+      clearInterval(fallInterval);
+      malusObject.classList.add("explosion"); // Ajouter la classe d'explosion
+      setTimeout(() => {
+        malusObject.remove(); // Retirer l'objet après l'animation
+      }, 1000); // Durée de l'animation d'explosion
+    }
       // Supprime l'objet lorsqu'il atteint le bas
-      if (top > window.innerHeight) {
-        malusObject.remove();
-        clearInterval(fallInterval);
-      }
+      //if (top > window.innerHeight) {
+      //  malusObject.remove();
+      //  clearInterval(fallInterval);
+      //}
       detectCollisions(malusObject);
     }, 1000 / 60);
   }
+  function createExplosionPieces(fallingObject) {
+    const numberOfPieces = 20; // Nombre de morceaux pour l'explosion
+    const rect = fallingObject.getBoundingClientRect();
+    const width = fallingObject.clientWidth;
+    const height = fallingObject.clientHeight;
+  
+    for (let i = 0; i < numberOfPieces; i++) {
+      const piece = document.createElement('div');
+      piece.className = 'explosion-piece';
+      
+      // Position aléatoire pour chaque morceau
+      piece.style.left = `${Math.random() * width}px`;
+      piece.style.top = `${Math.random() * height}px`;
+  
+      // Définir les déplacements aléatoires pour chaque morceau
+      piece.style.setProperty('--x', `${(Math.random() - 0.5) * 200}px`);
+      piece.style.setProperty('--y', `${(Math.random() - 0.5) * 200}px`);
+      
+      // Réutiliser la couleur de fond de l'objet
+      piece.style.backgroundImage = fallingObject.style.backgroundImage;
+      
+      fallingObject.appendChild(piece);
+    }
+    
+    fallingObject.classList.add('explode');
+  
+    // Supprimer l'objet après l'animation
+    setTimeout(() => {
+      fallingObject.remove();
+    }, 1000); // Durée de l'animation d'explosion
+  }
+  
+  // Exemple d'appel
+  const fallingObject = document.querySelector('.falling-object');
+  setTimeout(() => createExplosionPieces(fallingObject), 2000);
 
   // Joue la musique de fond
   if (backgroundMusic instanceof HTMLAudioElement) {

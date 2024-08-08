@@ -107,16 +107,38 @@ body {
 }
 .falling-object,
 .malus-object {
-  /* position: absolute;*/
+  position: absolute;
   width: 8vw;
   height: 8vw;
   max-width: 80px;
   max-height: 80px;
-  background-size: cover;
+  background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
-  /*border: 2px solid white;*/
+  border: 2px solid white;
   top: 0;
+  /* Ajout pour gérer l'adaptation de l'image */
+  object-fit: contain; /* Adaptation de l'image sans la tronquer */
+}
+.explosion {
+  animation: explode 1s forwards;
+}
+@keyframes explode {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+    background-color: transparent; /* Couleur de départ */
+  }
+  50% {
+    transform: scale(1.5); /* Expansion */
+    opacity: 0.7;
+    background-color: red; /* Couleur d'explosion */
+  }
+  100% {
+    transform: scale(0); /* Rétrécissement */
+    opacity: 0;
+    background-color: transparent; /* Couleur finale */
+  }
 }
 h1 {
   text-align: center;
@@ -142,12 +164,14 @@ h1 {
   top: 50px;
   right: 10px;
   background-color: rgb(200, 99, 247);
+  border-radius: 25px;
 }
 
 #level {
   top: 50px;
   left: 10px;
   background-color: rgb(200, 99, 247);
+  border-radius: 25px;
 }
 
 #lives-container {
@@ -201,7 +225,7 @@ h1 {
   left: 0;
   width: 100%;
   height: 20px; /* Hauteur de la limite invisible */
-  background-color: black; /* Invisible */
+  background-color: transparent; /* Invisible */
   pointer-events: none; /* Ignore les événements de la souris */
 }
 
