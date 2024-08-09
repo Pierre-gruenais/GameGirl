@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Initialisation au chargement
   //resizeCanvas();
-  // initializeCharacterPosition();
+  
 
   // Démarrer l'animation des objets tombants
   //setInterval(generateFallingObject, 1000); // Génère un nouvel objet toutes les secondes
