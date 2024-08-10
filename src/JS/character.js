@@ -145,7 +145,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   console.log("Événements tactiles ajoutés avec succès !");
 
-  initializeCharacterPosition();
+  //initializeCharacterPosition();
 
   // Écoute les événements de la touche clavier pressée
   document.addEventListener("keydown", (event) => {

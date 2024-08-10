@@ -270,3 +270,60 @@ document.addEventListener("DOMContentLoaded", () => {
 
   console.log("Script JavaScript chargé avec succès !");
 });
+//document.addEventListener("DOMContentLoaded", () => {
+//  const soundToggleButton = document.getElementById("sound-toggle");
+//  let soundEnabled = true; // État initial du son
+//
+//  // Assurez-vous d'avoir des références aux objets audio dans votre code
+//  const moveLeftSound = new Audio('src/assets/sounds/move-left.mp3');
+//  const moveRightSound = new Audio('src/assets/sounds/move-right.mp3');
+//  // Ajoutez d'autres sons ici si nécessaire
+//
+//  function toggleSound() {
+//    soundEnabled = !soundEnabled;
+//    soundToggleButton.textContent = soundEnabled ? '🔊' : '🔇'; // Change l'icône du bouton en fonction de l'état du son
+//  }
+//
+//  function playSound(sound) {
+//    if (soundEnabled) {
+//      sound.play();
+//    }
+//  }
+//
+//  // Écouteur d'événements pour le bouton de contrôle du son
+//  soundToggleButton.addEventListener("click", toggleSound);
+//
+//  // Exemple d'utilisation pour jouer un son
+//  function moveCharacter(direction) {
+//    if (character && gameCanvas /* && gameArea */) {
+//      // Récupère la position actuelle du personnage
+//      let left = parseInt(window.getComputedStyle(character).left, 10);
+//      const characterRect = character.getBoundingClientRect();
+//      const gameAreaRect = gameCanvas.getBoundingClientRect(); //gameArea.getBoundingClientRect();
+//      const bottomLimitRect = bottomLimit
+//        ? bottomLimit.getBoundingClientRect()
+//        : { top: gameCanvas.getBoundingClientRect().bottom };
+//
+//      if (direction === "left" && characterRect.left > gameAreaRect.left) {
+//        // Déplace le personnage à gauche
+//        character.style.left = `${Math.max(left - stepSize, 0)}px`;
+//        playSound(moveLeftSound); // Joue le son lorsque le personnage se déplace
+//      } else if (
+//        direction === "right" &&
+//        characterRect.right < gameAreaRect.right
+//      ) {
+//        // Déplace le personnage à droite
+//        character.style.left = `${Math.min(
+//          left + stepSize,
+//          gameAreaRect.width - characterRect.width
+//        )}px`;
+//        playSound(moveRightSound); // Joue le son lorsque le personnage se déplace
+//      }
+//      // gestion du saut
+//    }
+//  }
+//
+//  // Initialisation du bouton de son
+//  soundToggleButton.textContent = soundEnabled ? '🔊' : '🔇'; // Définit l'icône du bouton en fonction de l'état initial du son
+//});
+//
