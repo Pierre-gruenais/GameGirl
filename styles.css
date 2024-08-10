@@ -9,8 +9,8 @@ body {
   align-items: center;
   overflow: hidden;
   box-sizing: border-box;
-  /*background-image: url("src/assets/images/background-2.jpg");*/
-  background-color: #e3a0ec;
+  background-image: url("src/assets/images/background-2.jpg");
+  /*background-color: #e3a0ec;*/
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
