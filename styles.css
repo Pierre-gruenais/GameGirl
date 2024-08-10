@@ -10,7 +10,7 @@ body {
   overflow: hidden;
   box-sizing: border-box;
   background-image: url("src/assets/images/background-2.jpg");
-  /*background-color: #e3a0ec;*/
+
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -163,15 +163,15 @@ h1 {
 }
 
 #score {
-  top: 50px;
-  right: 10px;
+  top: 5px;
+  right: 20px;
   background-color: rgb(200, 99, 247);
   border-radius: 25px;
 }
 
 #level {
-  top: 50px;
-  left: 10px;
+  top: 5px;
+  left: 40px;
   background-color: rgb(200, 99, 247);
   border-radius: 25px;
 }
@@ -208,22 +208,23 @@ h1 {
 #sound-controls {
   position: fixed;
   bottom: 10px;
-  right: 10px;
+  top: 2px;
+  left: 10px;
   z-index: 20;
 }
 #sound-toggle {
-  background-color: #333;
+  background-color: #78145d;
   color: white;
   border: none;
   border-radius: 5px;
-  padding: 10px 15px;
+  padding: 5px 5px;
   cursor: pointer;
-  font-size: 1.5em;
+  font-size: 0.5em;
   transition: background-color 0.3s ease;
 }
 
 #sound-toggle:hover {
-  background-color: #555;
+  background-color: #e86ad9;
 }
 #character {
   position: absolute;
