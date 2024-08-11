@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const gameCanvas = document.getElementById("game-canvas");
   const bottomLimit = document.getElementById("bottom-limit");
   const stepSize = 50; // Taille de l'étape de déplacement en pixels
-  const moveSpeed = 0.2; //vitesse du deplacement tactile
+  const moveSpeed = 0.1; //vitesse du deplacement tactile
 
 //  const moveLeftSound = new Audio('src/assets/sounds/move-left.mp3');
 //  const moveRightSound = new Audio('src/assets/sounds/move-right.mp3');
@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Fonction pour déplacer le personnage
   function moveCharacter(deltaX) {
-    if (character && gameCanvas /* && gameArea */) {
+    if (character && gameCanvas ) {
       // Récupère la position actuelle du personnage
       let left = parseInt(window.getComputedStyle(character).left, 10);
       //let top = parseInt(window.getComputedStyle(character).top, 10);
@@ -36,6 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const bottomLimitRect = bottomLimit
         ? bottomLimit.getBoundingClientRect()
         : { top: gameCanvas.getBoundingClientRect().bottom };
+        
       // Appliquer un facteur de vitesse pour le mouvement tactile
     const moveAmount = deltaX * moveSpeed;
 
