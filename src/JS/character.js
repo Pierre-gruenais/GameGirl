@@ -3,11 +3,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const gameCanvas = document.getElementById("game-canvas");
   const bottomLimit = document.getElementById("bottom-limit");
   const stepSize = 50; // Taille de l'étape de déplacement en pixels
-  const moveSpeed = 0.1; //vitesse du deplacement tactile
-
-//  const moveLeftSound = new Audio('src/assets/sounds/move-left.mp3');
-//  const moveRightSound = new Audio('src/assets/sounds/move-right.mp3');
-//  // Ajoutez d'autres sons ici si nécessaire
 
   // Fonction pour initialiser la position du personnage
   function initializeCharacterPosition() {
@@ -26,8 +21,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Fonction pour déplacer le personnage
-  function moveCharacter(deltaX) {
-    if (character && gameCanvas ) {
+  function moveCharacter(direction) {
+    if (character && gameCanvas /* && gameArea */) {
       // Récupère la position actuelle du personnage
       let left = parseInt(window.getComputedStyle(character).left, 10);
       //let top = parseInt(window.getComputedStyle(character).top, 10);
@@ -36,20 +31,11 @@ document.addEventListener("DOMContentLoaded", () => {
       const bottomLimitRect = bottomLimit
         ? bottomLimit.getBoundingClientRect()
         : { top: gameCanvas.getBoundingClientRect().bottom };
-        
-      // Appliquer un facteur de vitesse pour le mouvement tactile
-    const moveAmount = deltaX * moveSpeed;
-
-     // Limiter le mouvement pour éviter que le personnage ne sorte des limites
-     let newLeft = left + moveAmount;
-     newLeft = Math.max(0, Math.min(newLeft, gameAreaRect.width - characterRect.width));
-     character.style.left = `${newLeft}px`;
 
       if (direction === "left" && characterRect.left > gameAreaRect.left) {
         // Déplace le personnage à gauche
         character.style.left = `${Math.max(left - stepSize, 0)}px`;
         // moveLeftSound.play();
-        //        playSound(moveLeftSound); // Joue le son lorsque le personnage se déplace
       } else if (
         direction === "right" &&
         characterRect.right < gameAreaRect.right
@@ -60,7 +46,6 @@ document.addEventListener("DOMContentLoaded", () => {
           gameAreaRect.width - characterRect.width
         )}px`;
         //moveRightSound.play();
-        //        playSound(moveRightSound); // Joue le son lorsque le personnage se déplace
       }
       // gestion du saut
       /* else if (direction === "up" && characterRect.top > gameAreaRect.top) {
@@ -112,7 +97,6 @@ document.addEventListener("DOMContentLoaded", () => {
   //   }
   // }
   let startX = 0;
-  let lastX = 0;
   let startY = 0;
   let isTouching = false;
 
@@ -120,7 +104,6 @@ document.addEventListener("DOMContentLoaded", () => {
   function handleTouchStart(event) {
     if (event.touches.length === 1) {
       startX = event.touches[0].clientX;
-      lastX = startX; // Initialiser lastX pour éviter les mouvements brusques
       startY = event.touches[0].clientY;
       isTouching = true;
     }
@@ -134,10 +117,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const deltaX = currentX - startX;
       const deltaY = currentY - startY;
-
-      moveCharacter(deltaX);
-
-      lastX = currentX; // Mise à jour de lastX pour le prochain mouvement
 
       // determiner la direction du glissement
       if (Math.abs(deltaX) > Math.abs(deltaY)) {
@@ -182,5 +161,4 @@ document.addEventListener("DOMContentLoaded", () => {
     //   handleJump();
     // }
   });
-
 });
