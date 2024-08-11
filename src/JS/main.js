@@ -13,6 +13,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const backgroundMusic = document.getElementById("background-music");
   backgroundMusic.volume = 0.1;
 
+  const soundToggleButton = document.getElementById("sound-toggle");
+  let soundEnabled = true; // État initial du son
+
   const objectFallSpeed = 2; // Vitesse de chute des objets en pixels par frame
   const images = [
     "src/assets/images/bonbon.png",
@@ -28,10 +31,10 @@ document.addEventListener("DOMContentLoaded", () => {
     "src/assets/images/betterave.png",
   ];
 
-  // nombre de vies au demarrage
+  // Nombre de vies au démarrage
   let lives = 3;
   let previousLives = lives;
-  // initialise le score à 0
+  // Initialise le score à 0
   let score = 0;
 
   // Fonction pour démarrer le jeu
@@ -39,8 +42,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (introOverlay) {
       introOverlay.style.display = "none"; // Cache le bandeau d'accueil
       console.log("bandeau caché !");
-      // Ajoutez ici l'initialisation ou le démarrage du jeu
-      // Par exemple, vous pouvez commencer à créer des objets qui tombent, etc.
       console.log("Jeu démarré !");
       backgroundMusic
         .play()
@@ -67,6 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
     console.error("Les éléments de l'intro n'ont pas été trouvés.");
   }
 
+  // Fonction pour mettre à jour les vies dans l'interface utilisateur
   function updateLives() {
     const livesContainer = document.getElementById("lives-container");
     if (livesContainer) {
@@ -78,11 +80,11 @@ document.addEventListener("DOMContentLoaded", () => {
         livesContainer.appendChild(lifeIcon);
       }
       if (lives < previousLives) {
-        // ajout de l'animation à l'icône de vie perdue
+        // Ajout de l'animation à l'icône de vie perdue
         const lostLifeIcon = livesContainer.children[lives];
         if (lostLifeIcon) {
           lostLifeIcon.classList.add("lost-life");
-          // supprime l'icône après l'animation
+          // Supprime l'icône après l'animation
           setTimeout(() => {
             lostLifeIcon.remove();
           }, 500);
@@ -93,6 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error("Element with id 'lives-container' not found");
     }
   }
+
   // Fonction pour mettre à jour le score et afficher dans l'interface utilisateur
   function updateScore(points) {
     score += points;
@@ -138,6 +141,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // Fonction pour créer un objet qui tombe
   function createFallingObject() {
     const fallingObject = document.createElement("div");
     fallingObject.className = "falling-object";
@@ -149,10 +153,10 @@ document.addEventListener("DOMContentLoaded", () => {
     fallingObject.style.left = `${
       Math.random() * (gameCanvas.clientWidth - 50)
     }px`;
-    fallingObject.style.top = "0px"; // les objets demarrent en haut de la fenetre
+    fallingObject.style.top = "0px"; // Les objets démarrent en haut de la fenêtre
     document.body.appendChild(fallingObject);
 
-    const fallSpeed = Math.random() * 2 + 1; //vitesse de chute aleatoire entre 1 et 3 par frame
+    const fallSpeed = Math.random() * 2 + 1; // Vitesse de chute aléatoire entre 1 et 3 par frame
     const horizontalSpeed = Math.random() * 2 - 1; // Vitesse horizontale aléatoire entre -1 et 1 pixels par frame
 
     let top = 0;
@@ -163,24 +167,21 @@ document.addEventListener("DOMContentLoaded", () => {
       fallingObject.style.top = `${top}px`;
       fallingObject.style.left = `${left}px`;
 
-
       // Vérifiez si l'objet a touché le bas
-    if (top > window.innerHeight - fallingObject.clientHeight) {
-      clearInterval(fallInterval);
-      fallingObject.classList.add("explosion"); // Ajouter la classe d'explosion
-      setTimeout(() => {
-        fallingObject.remove(); // Retirer l'objet après l'animation
-      }, 1000); // Durée de l'animation d'explosion
-    }
-      // Supprime l'objet lorsqu'il atteint le bas
-      //if (top > window.innerHeight) {
-      //  fallingObject.remove();
-      //  clearInterval(fallInterval);
-      //}
+      if (top > window.innerHeight - fallingObject.clientHeight) {
+        clearInterval(fallInterval);
+        fallingObject.classList.add("explosion"); // Ajouter la classe d'explosion
+        setTimeout(() => {
+          fallingObject.remove(); // Retirer l'objet après l'animation
+        }, 1000); // Durée de l'animation d'explosion
+      }
+
+      // Détecte les collisions entre le personnage et l'objet
       detectCollisions(fallingObject);
     }, 1000 / 60); // 60 FPS
   }
 
+  // Fonction pour créer un objet malus
   function createMalusObject() {
     const malusObject = document.createElement("div");
     malusObject.className = "malus-object";
@@ -193,7 +194,7 @@ document.addEventListener("DOMContentLoaded", () => {
     malusObject.style.left = `${
       Math.random() * (gameCanvas.clientWidth - 50)
     }px`;
-    malusObject.style.top = "0px"; // les objets démarrent en haut de la fenêtre
+    malusObject.style.top = "0px"; // Les objets démarrent en haut de la fenêtre
     document.body.appendChild(malusObject);
 
     const fallSpeed = Math.random() * 2 + 1; // Vitesse de chute aléatoire entre 1 et 3 pixels par frame
@@ -207,123 +208,70 @@ document.addEventListener("DOMContentLoaded", () => {
       malusObject.style.top = `${top}px`;
       malusObject.style.left = `${left}px`;
 
-         // Vérifiez si l'objet a touché le bas
-    if (top > window.innerHeight - malusObject.clientHeight) {
-      clearInterval(fallInterval);
-      malusObject.classList.add("explosion"); // Ajouter la classe d'explosion
-      setTimeout(() => {
-        malusObject.remove(); // Retirer l'objet après l'animation
-      }, 1000); // Durée de l'animation d'explosion
-    }
-      // Supprime l'objet lorsqu'il atteint le bas
-      //if (top > window.innerHeight) {
-      //  malusObject.remove();
-      //  clearInterval(fallInterval);
-      //}
+      // Vérifiez si l'objet a touché le bas
+      if (top > window.innerHeight - malusObject.clientHeight) {
+        clearInterval(fallInterval);
+        malusObject.classList.add("explosion"); // Ajouter la classe d'explosion
+        setTimeout(() => {
+          malusObject.remove(); // Retirer l'objet après l'animation
+        }, 1000); // Durée de l'animation d'explosion
+      }
+
+      // Détecte les collisions entre le personnage et l'objet malus
       detectCollisions(malusObject);
     }, 1000 / 60);
   }
+
+  // Fonction pour créer les morceaux d'explosion
   function createExplosionPieces(fallingObject) {
     const numberOfPieces = 20; // Nombre de morceaux pour l'explosion
-    const rect = fallingObject.getBoundingClientRect();
-    const width = fallingObject.clientWidth;
-    const height = fallingObject.clientHeight;
-  
+    const explosionContainer = document.createElement("div");
+    explosionContainer.className = "explosion-container";
+    document.body.appendChild(explosionContainer);
+
     for (let i = 0; i < numberOfPieces; i++) {
-      const piece = document.createElement('div');
-      piece.className = 'explosion-piece';
-      
-      // Position aléatoire pour chaque morceau
-      piece.style.left = `${Math.random() * width}px`;
-      piece.style.top = `${Math.random() * height}px`;
-  
-      // Définir les déplacements aléatoires pour chaque morceau
-      piece.style.setProperty('--x', `${(Math.random() - 0.5) * 200}px`);
-      piece.style.setProperty('--y', `${(Math.random() - 0.5) * 200}px`);
-      
-      // Réutiliser la couleur de fond de l'objet
-      piece.style.backgroundImage = fallingObject.style.backgroundImage;
-      
-      fallingObject.appendChild(piece);
+      const piece = document.createElement("div");
+      piece.className = "explosion-piece";
+
+      // Applique une animation aléatoire aux morceaux
+      piece.style.animationDelay = `${Math.random() * 0.5}s`;
+      explosionContainer.appendChild(piece);
     }
-    
-    fallingObject.classList.add('explode');
-  
-    // Supprimer l'objet après l'animation
+
+    // Positionne l'explosion à la position de l'objet
+    explosionContainer.style.left = `${fallingObject.offsetLeft}px`;
+    explosionContainer.style.top = `${fallingObject.offsetTop}px`;
+
+    // Retire les morceaux après l'animation
     setTimeout(() => {
-      fallingObject.remove();
-    }, 1000); // Durée de l'animation d'explosion
+      explosionContainer.remove();
+    }, 1000);
+  }
+
+  // Fonction pour animer le texte
+  function animateText(textElement) {
+    const animationClass = "animated-text";
+    textElement.classList.add(animationClass);
+
+    setTimeout(() => {
+      textElement.classList.remove(animationClass);
+    }, 1000); // Durée de l'animation (en millisecondes)
+  }
+
+  // Fonction pour activer/désactiver le son
+  function toggleSound() {
+    soundEnabled = !soundEnabled;
+    soundToggleButton.className = soundEnabled ? "sound-toggle sound-on" : "sound-toggle sound-off";
+    
+    if (soundEnabled) {
+      backgroundMusic.play().catch((err) => console.error("Failed to play background music:", err));
+    } else {
+      backgroundMusic.pause();
+    }
   }
   
-  // Exemple d'appel
-  const fallingObject = document.querySelector('.falling-object');
-  setTimeout(() => createExplosionPieces(fallingObject), 2000);
+  soundToggleButton.addEventListener("click", toggleSound);
+  });
+  
+  
 
-  // Joue la musique de fond
-  if (backgroundMusic instanceof HTMLAudioElement) {
-    backgroundMusic.play();
-  } else {
-    console.error(
-      "Element with id 'background-music' is not an HTMLAudioElement"
-    );
-  }
-
-  console.log("Script JavaScript chargé avec succès !");
-});
-//document.addEventListener("DOMContentLoaded", () => {
-//  const soundToggleButton = document.getElementById("sound-toggle");
-//  let soundEnabled = true; // État initial du son
-//
-//  // Assurez-vous d'avoir des références aux objets audio dans votre code
-//  const moveLeftSound = new Audio('src/assets/sounds/move-left.mp3');
-//  const moveRightSound = new Audio('src/assets/sounds/move-right.mp3');
-//  // Ajoutez d'autres sons ici si nécessaire
-//
-//  function toggleSound() {
-//    soundEnabled = !soundEnabled;
-//    soundToggleButton.textContent = soundEnabled ? '🔊' : '🔇'; // Change l'icône du bouton en fonction de l'état du son
-//  }
-//
-//  function playSound(sound) {
-//    if (soundEnabled) {
-//      sound.play();
-//    }
-//  }
-//
-//  // Écouteur d'événements pour le bouton de contrôle du son
-//  soundToggleButton.addEventListener("click", toggleSound);
-//
-//  // Exemple d'utilisation pour jouer un son
-//  function moveCharacter(direction) {
-//    if (character && gameCanvas /* && gameArea */) {
-//      // Récupère la position actuelle du personnage
-//      let left = parseInt(window.getComputedStyle(character).left, 10);
-//      const characterRect = character.getBoundingClientRect();
-//      const gameAreaRect = gameCanvas.getBoundingClientRect(); //gameArea.getBoundingClientRect();
-//      const bottomLimitRect = bottomLimit
-//        ? bottomLimit.getBoundingClientRect()
-//        : { top: gameCanvas.getBoundingClientRect().bottom };
-//
-//      if (direction === "left" && characterRect.left > gameAreaRect.left) {
-//        // Déplace le personnage à gauche
-//        character.style.left = `${Math.max(left - stepSize, 0)}px`;
-//        playSound(moveLeftSound); // Joue le son lorsque le personnage se déplace
-//      } else if (
-//        direction === "right" &&
-//        characterRect.right < gameAreaRect.right
-//      ) {
-//        // Déplace le personnage à droite
-//        character.style.left = `${Math.min(
-//          left + stepSize,
-//          gameAreaRect.width - characterRect.width
-//        )}px`;
-//        playSound(moveRightSound); // Joue le son lorsque le personnage se déplace
-//      }
-//      // gestion du saut
-//    }
-//  }
-//
-//  // Initialisation du bouton de son
-//  soundToggleButton.textContent = soundEnabled ? '🔊' : '🔇'; // Définit l'icône du bouton en fonction de l'état initial du son
-//});
-//

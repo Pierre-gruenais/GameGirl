@@ -4,6 +4,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const bottomLimit = document.getElementById("bottom-limit");
   const stepSize = 50; // Taille de l'étape de déplacement en pixels
 
+//  const moveLeftSound = new Audio('src/assets/sounds/move-left.mp3');
+//  const moveRightSound = new Audio('src/assets/sounds/move-right.mp3');
+//  // Ajoutez d'autres sons ici si nécessaire
+
   // Fonction pour initialiser la position du personnage
   function initializeCharacterPosition() {
     if (character && gameCanvas) {
@@ -36,6 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Déplace le personnage à gauche
         character.style.left = `${Math.max(left - stepSize, 0)}px`;
         // moveLeftSound.play();
+        //        playSound(moveLeftSound); // Joue le son lorsque le personnage se déplace
       } else if (
         direction === "right" &&
         characterRect.right < gameAreaRect.right
@@ -46,6 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
           gameAreaRect.width - characterRect.width
         )}px`;
         //moveRightSound.play();
+        //        playSound(moveRightSound); // Joue le son lorsque le personnage se déplace
       }
       // gestion du saut
       /* else if (direction === "up" && characterRect.top > gameAreaRect.top) {
@@ -161,4 +167,5 @@ document.addEventListener("DOMContentLoaded", () => {
     //   handleJump();
     // }
   });
+
 });

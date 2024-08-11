@@ -1,0 +1,107 @@
+[33mcommit adc4917026f8a33e0798e45b879a866353851fff[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: Pierre-gruenais <Pierre.gruenais@oclcock.school>
+Date:   Sat Aug 10 15:18:23 2024 +0200
+
+     recherche de bug du background
+
+[33mcommit f59a33c994f8ea5db97d5c3306845d5ed2963683[m
+Author: Pierre-gruenais <Pierre.gruenais@oclcock.school>
+Date:   Sat Aug 10 15:07:38 2024 +0200
+
+     recherche de bug du background
+
+[33mcommit 71cdaea3a52775152ba75cf4f62ff9417baa9d88[m
+Author: Pierre-gruenais <Pierre.gruenais@oclcock.school>
+Date:   Sat Aug 10 15:05:29 2024 +0200
+
+     recherche de bug du background
+
+[33mcommit b0ba5b10576a7e0a1740834057c55d7a09527ae2[m
+Author: Pierre-gruenais <Pierre.gruenais@oclcock.school>
+Date:   Sat Aug 10 14:56:05 2024 +0200
+
+     recherche de bug du background
+
+[33mcommit 75aee043d6060ba6494f4e3e221217f848d15e18[m
+Author: Pierre-gruenais <Pierre.gruenais@oclcock.school>
+Date:   Fri Aug 9 14:46:30 2024 +0200
+
+     ajout touch evenement tactiles WIP
+
+[33mcommit 1c047221405deb8d577821a0b415ca9f756d4738[m
+Author: Pierre-gruenais <Pierre.gruenais@oclcock.school>
+Date:   Thu Aug 8 18:47:44 2024 +0200
+
+    modifications chemin relatif image background
+
+[33mcommit 3b10885ee3fcf8833b6cea62d4c55cc6711a52ae[m
+Author: Pierre-gruenais <Pierre.gruenais@oclcock.school>
+Date:   Thu Aug 8 18:44:32 2024 +0200
+
+    modifications chemin relatif image background
+
+[33mcommit 115567f54351fdaa5db6b116e2f339656022fe49[m
+Author: Pierre-gruenais <Pierre.gruenais@oclcock.school>
+Date:   Thu Aug 8 18:42:47 2024 +0200
+
+    modifications chemin relatif background 2
+
+[33mcommit 495feb71f4dfa32171c6a54930635c65097317a6[m
+Author: Pierre-gruenais <Pierre.gruenais@oclcock.school>
+Date:   Thu Aug 8 18:25:00 2024 +0200
+
+    modifications chemin relatif background
+
+[33mcommit e39e2d80096c0cc8c17be33adcfab485447c10e1[m
+Author: Pierre-gruenais <Pierre.gruenais@oclcock.school>
+Date:   Thu Aug 8 18:18:36 2024 +0200
+
+    modifications chemins relatifs et sortie du index.html
+
+[33mcommit 893f13c752a605863016ba94556fd807f5f3ff58[m
+Author: Pierre-gruenais <Pierre.gruenais@oclcock.school>
+Date:   Thu Aug 8 01:33:05 2024 +0200
+
+     responsive design corrigé
+
+[33mcommit 77d4b25f775f1ff3cf61d0e5e8e137ee9c721188[m
+Author: Pierre-gruenais <Pierre.gruenais@oclcock.school>
+Date:   Wed Aug 7 16:01:52 2024 +0200
+
+    Archiver le fichier deploy.yml
+
+[33mcommit 8525fd8927b45e6f525961aa8965f344258ed048[m
+Author: Pierre-gruenais <Pierre.gruenais@oclcock.school>
+Date:   Wed Aug 7 00:03:13 2024 +0200
+
+    Update deployment script to copy files to public directory
+
+[33mcommit e786290794cc9dce6a935bc664251d291f26b6a3[m
+Author: Pierre-gruenais <Pierre.gruenais@oclcock.school>
+Date:   Wed Aug 7 00:02:30 2024 +0200
+
+    Update deployment script to copy files to public directory
+
+[33mcommit 2200bcd2d86322c4dd0b8b1970ab308afb9eb8eb[m
+Author: Pierre-gruenais <Pierre.gruenais@oclcock.school>
+Date:   Tue Aug 6 23:19:21 2024 +0200
+
+    Update deployment script to copy files to public directory
+
+[33mcommit 184f0beed96b3b95fd15ac531f03ec490f093533[m
+Author: Pierre-gruenais <Pierre.gruenais@oclcock.school>
+Date:   Tue Aug 6 23:10:07 2024 +0200
+
+    Corriger le workflow de déploiement
+
+[33mcommit f9b48944a4c719052b75c3e5e86063468dc3ea3e[m
+Author: Pierre-gruenais <Pierre.gruenais@oclcock.school>
+Date:   Tue Aug 6 02:58:11 2024 +0200
+
+    Update GitHub Actions workflow to use GH_TOKEN
+
+[33mcommit 6ce43fbdde1d17b21022edb6fb2f6aeb1c43742a[m
+Author: Pierre-gruenais <Pierre.gruenais@oclcock.school>
+Date:   Tue Aug 6 02:32:14 2024 +0200
+
+    Ajout du workflow GitHub Actions pour déployer depuis src

@@ -212,19 +212,27 @@ h1 {
   left: 10px;
   z-index: 20;
 }
-#sound-toggle {
-  background-color: #78145d;
-  color: white;
+.sound-toggle {
+  width: 20px; /* Ajustez la taille selon vos besoins */
+  height: 20px; /* Ajustez la taille selon vos besoins */
+  border-radius: 25px;
+  background-size: cover; /* Assurez-vous que l'image couvre le bouton */
+  background-position: center; /* Centre l'image dans le bouton */
   border: none;
-  border-radius: 5px;
-  padding: 5px 5px;
   cursor: pointer;
-  font-size: 0.5em;
-  transition: background-color 0.3s ease;
+  padding: 0;
+  transition: opacity 0.3s ease;
 }
 
 #sound-toggle:hover {
-  background-color: #e86ad9;
+  background-color: #eda5e4;
+}
+
+.sound-toggle.sound-on {
+ background-image:url('src/assets/icons/icons8-sound-64.png')
+}
+.sound-toggle.sound-off {
+  background-image:url('src/assets/icons/mute.png')
 }
 #character {
   position: absolute;
