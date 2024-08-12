@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         //maintien la position verticale constante a la ligne de base)
-        const baseTop = gameAreaRect.bottom - characterRect.height;
+         const baseTop = gameAreaRect.bottom - characterRect.height;
         character.style.top = `${baseTop}px`;
       //  if (
       //    newTop >= gameAreaRect.top &&

@@ -104,7 +104,7 @@ body {
   height: 99.5%;
   z-index: 1; /* Assure que les objets tombants sont au-dessus */
   background-color: transparent;
-  border: 2px solid red; /* Bordure temporaire pour débogage */
+  /*border: 2px solid red; /* Bordure temporaire pour débogage */
   overflow: hidden;
 }
 .falling-object,
