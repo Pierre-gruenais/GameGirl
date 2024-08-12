@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
         //  ) {
         //    character.style.top = `${newTop}px`;
         //  }
-        //}
+        }
       }
 
       // Fonction pour arrêter le déplacement
@@ -227,4 +227,4 @@ document.addEventListener("DOMContentLoaded", () => {
       // }
     });
   }
-});
+);
