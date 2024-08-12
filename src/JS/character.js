@@ -60,11 +60,11 @@ document.addEventListener("DOMContentLoaded", () => {
       isDragging = false;
     }
 
-    // Ajouter les écouteurs d'événements pour le toucher
-    character.addEventListener("touchstart", startDrag);
-    character.addEventListener("touchmove", dragCharacter);
-    character.addEventListener("touchend", stopDrag);
-    character.addEventListener("touchcancel", stopDrag); // En cas d'annulation du toucher
+  //  // Ajouter les écouteurs d'événements pour le toucher
+  //  character.addEventListener("touchstart", startDrag);
+  //  character.addEventListener("touchmove", dragCharacter);
+  //  character.addEventListener("touchend", stopDrag);
+  //  character.addEventListener("touchcancel", stopDrag); // En cas d'annulation du toucher
   }
   // Fonction pour initialiser la position du personnage
   function initializeCharacterPosition() {
@@ -208,11 +208,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   console.log("Événements tactiles ajoutés avec succès !");
 
-  //initializeCharacterPosition();
+  initializeCharacterPosition();
 
   // Écoute les événements de la touche clavier pressée
   document.addEventListener("keydown", (event) => {
     const key = event.key;
+
+    console.log(`Key pressed: ${key}`); // Pour vérifier la touche pressée
 
     if (key === "ArrowLeft") {
       moveCharacter("left");
@@ -224,4 +226,4 @@ document.addEventListener("DOMContentLoaded", () => {
     //   handleJump();
     // }
   });
-});
+}});
