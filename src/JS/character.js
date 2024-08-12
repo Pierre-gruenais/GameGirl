@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Calculer la nouvelle position du personnage
         const newLeft = touch.clientX - offsetX;
-        const newTop = touch.clientY - offsetY;
+       // const newTop = touch.clientY - offsetY; // fonction pour fire monter le personnage
 
         // Limiter le mouvement pour ne pas sortir de la zone de jeu
         const gameAreaRect = gameCanvas.getBoundingClientRect();
@@ -43,13 +43,16 @@ document.addEventListener("DOMContentLoaded", () => {
           character.style.left = `${newLeft}px`;
         }
 
-        if (
-          newTop >= gameAreaRect.top &&
-          newTop + characterRect.height <= gameAreaRect.bottom
-        ) {
-          character.style.top = `${newTop}px`;
-        }
-      }
+        //maintien la position verticale constante a la ligne de base)
+        const baseTop = gameAreaRect.bottom - characterRect.height;
+        character.style.top = `${baseTop}px`;
+      //  if (
+      //    newTop >= gameAreaRect.top &&
+      //    newTop + characterRect.height <= gameAreaRect.bottom
+      //  ) {
+      //    character.style.top = `${newTop}px`;
+      //  }
+      //}
     }
 
     // Fonction pour arrêter le déplacement
