@@ -6,7 +6,7 @@
     <title>GameGirl</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
-  <body >
+  <body>
     <!--<div id="background-wrapper">-->
     <!--<div id="game-container">-->
     <!--<div id="game-area">-->
@@ -14,9 +14,14 @@
       <div id="intro-content">
         <h2>Bienvenue dans GameGirl !</h2>
         <p>
-          Attrape les friandises pour marquer des points mais evite les légumes
-          pour ne pas perdre de vies
-        </p>
+          Attrape les friandises pour marquer des points mais évite les légumes
+          pour ne pas perdre de vies </p>
+         <p>Tourne l'appareil pour jouer  </p> 
+         <img src="src/assets/images/rotate.png" >
+         <br>
+         <br>
+         
+        
         <button id="start-button">Démarrer</button>
       </div>
     </div>
@@ -29,14 +34,18 @@
       <img src="src/assets/images/coeur(1).png" class="life-icon" />
     </div>
     <div id="score">Score: <span id="score-value">0</span></div>
-    
+
     <div id="sound-controls">
       <button id="sound-toggle" class="sound-toggle sound-on"></button>
     </div>
 
     <canvas id="game-canvas"></canvas>
     <div id="character">
-      <img src="src/assets/images/perso.png" alt="character" id="character-img" />
+      <img
+        src="src/assets/images/perso.png"
+        alt="character"
+        id="character-img"
+      />
     </div>
     <div id="bottom-limit"></div>
     <!-- Limite invisible ajoutée -->
@@ -50,8 +59,10 @@
 
     <!--</div>-->
     <!--</div>-->
-
-    
+    <div id="game-over-banner" class="hidden">
+      <h1> Game Over</h1>
+      <button id="restart-button">Restart</button>
+    </div>
     <script src="src/JS/main.js"></script>
     <script src="src/JS/game.js"></script>
     <script src="src/JS/character.js"></script>

@@ -6,17 +6,25 @@ document.addEventListener("DOMContentLoaded", () => {
     );
     return;
   }
+
   const ctx = gameCanvas.getContext("2d");
   const startButton = document.getElementById("start-button");
   const introOverlay = document.getElementById("intro-overlay");
-
+  const gameOverBanner = document.getElementById("game-over-banner");
+  const restartButton = document.getElementById("restart-button");
   const backgroundMusic = document.getElementById("background-music");
+  const soundToggleButton = document.getElementById("sound-toggle");
+
   backgroundMusic.volume = 0.1;
 
-  const soundToggleButton = document.getElementById("sound-toggle");
   let soundEnabled = true; // État initial du son
+  let lives = 3;
+  let previousLives = lives;
+  let score = 0;
+  let gameStarted = false; // Indicateur pour vérifier si le jeu a commencé
 
   const objectFallSpeed = 2; // Vitesse de chute des objets en pixels par frame
+
   const images = [
     "src/assets/images/bonbon.png",
     "src/assets/images/bonboncoeur.png",
@@ -24,18 +32,13 @@ document.addEventListener("DOMContentLoaded", () => {
     "src/assets/images/Glace.png",
     "src/assets/images/sucetteCoeur.png",
   ];
+
   const malusImageUrl = [
     "src/assets/images/carotte-2.png",
     "src/assets/images/poivron.png",
     "src/assets/images/epinards.png",
     "src/assets/images/betterave.png",
   ];
-
-  // Nombre de vies au démarrage
-  let lives = 3;
-  let previousLives = lives;
-  // Initialise le score à 0
-  let score = 0;
 
   // Fonction pour démarrer le jeu
   function startGame() {
@@ -56,16 +59,10 @@ document.addEventListener("DOMContentLoaded", () => {
       // Initialise les vies et le score dans l'interface utilisateur
       updateLives();
       updateScore(0);
+      gameStarted = true;
     } else {
-      console.error("l'element d'introOverlay est manquant.");
+      console.error("l'élément d'introOverlay est manquant.");
     }
-  }
-
-  // Assurez-vous que les éléments existent avant de les utiliser
-  if (startButton && introOverlay) {
-    startButton.addEventListener("click", startGame);
-  } else {
-    console.error("Les éléments de l'intro n'ont pas été trouvés.");
   }
 
   // Fonction pour mettre à jour les vies dans l'interface utilisateur
@@ -109,6 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Fonction pour détecter les collisions entre le personnage et les objets
   function detectCollisions(fallingObject) {
+    const character = document.getElementById("character");
     if (!character || !(character instanceof HTMLElement)) {
       console.error("Character element not found or is not an HTMLElement");
       return;
@@ -133,16 +131,35 @@ document.addEventListener("DOMContentLoaded", () => {
         updateLives();
 
         if (lives <= 0) {
-          alert("Game Over!");
-          // Ajouter une logique de réinitialisation du jeu ici
+          showGameOver(); // Affiche le bandeau "Game Over"
         }
       }
       fallingObject.remove();
     }
   }
 
+  // Fonction pour afficher le bandeau "Game Over"
+  function showGameOver() {
+    gameOverBanner.classList.remove("hidden");
+
+    gameStarted = false;
+  }
+
+  // Fonction pour redémarrer le jeu
+  function restartGame() {
+    gameOverBanner.classList.add("hidden");
+    lives = 3;
+    score = 0;
+    updateLives();
+    updateScore(0);
+    // Réinitialisez les objets tombants et autres éléments du jeu ici
+    // Par exemple, vous pouvez redémarrer les timers et recréer les objets
+    startGame(); // Relancer le jeu
+  }
+
   // Fonction pour créer un objet qui tombe
   function createFallingObject() {
+    if (!gameStarted) return; // verifie si le jeu z commencé avant de creer un objet
     const fallingObject = document.createElement("div");
     fallingObject.className = "falling-object";
 
@@ -183,6 +200,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Fonction pour créer un objet malus
   function createMalusObject() {
+    if (!gameStarted) return; // **Vérifie si le jeu a commencé avant de créer l'objet malus**
+
     const malusObject = document.createElement("div");
     malusObject.className = "malus-object";
 
@@ -261,17 +280,38 @@ document.addEventListener("DOMContentLoaded", () => {
   // Fonction pour activer/désactiver le son
   function toggleSound() {
     soundEnabled = !soundEnabled;
-    soundToggleButton.className = soundEnabled ? "sound-toggle sound-on" : "sound-toggle sound-off";
-    
+    soundToggleButton.className = soundEnabled
+      ? "sound-toggle sound-on"
+      : "sound-toggle sound-off";
+
     if (soundEnabled) {
-      backgroundMusic.play().catch((err) => console.error("Failed to play background music:", err));
+      backgroundMusic
+        .play()
+        .catch((err) => console.error("Failed to play background music:", err));
     } else {
       backgroundMusic.pause();
     }
   }
-  
-  soundToggleButton.addEventListener("click", toggleSound);
-  });
-  
-  
 
+  // Événements de démarrage et redémarrage
+  if (startButton && introOverlay) {
+    startButton.addEventListener("click", startGame);
+  } else {
+    console.error("Les éléments de l'intro n'ont pas été trouvés.");
+  }
+
+  if (restartButton) {
+    restartButton.addEventListener("click", restartGame);
+  } else {
+    console.error("L'élément du bouton de redémarrage est manquant.");
+  }
+
+  soundToggleButton.addEventListener("click", toggleSound);
+
+  window.addEventListener("resize", () => {
+    // resizeCanvas();
+    //initializeCharacterPosition();
+  });
+
+  console.log("Script Javascript chargé avec succès !");
+});
