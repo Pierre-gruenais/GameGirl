@@ -10,8 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const ctx = gameCanvas.getContext("2d");
   const startButton = document.getElementById("start-button");
   const introOverlay = document.getElementById("intro-overlay");
-  const gameOverBanner = document.getElementById("game-over-banner");
-  const restartButton = document.getElementById("restart-button");
+ 
   const backgroundMusic = document.getElementById("background-music");
   const soundToggleButton = document.getElementById("sound-toggle");
 
@@ -131,31 +130,16 @@ document.addEventListener("DOMContentLoaded", () => {
         updateLives();
 
         if (lives <= 0) {
-          showGameOver(); // Affiche le bandeau "Game Over"
+          alert("gameover"); 
         }
       }
       fallingObject.remove();
     }
   }
 
-  // Fonction pour afficher le bandeau "Game Over"
-  function showGameOver() {
-    gameOverBanner.classList.remove("hidden");
+  
 
-    gameStarted = false;
-  }
 
-  // Fonction pour redémarrer le jeu
-  function restartGame() {
-    gameOverBanner.classList.add("hidden");
-    lives = 3;
-    score = 0;
-    updateLives();
-    updateScore(0);
-    // Réinitialisez les objets tombants et autres éléments du jeu ici
-    // Par exemple, vous pouvez redémarrer les timers et recréer les objets
-    startGame(); // Relancer le jeu
-  }
 
   // Fonction pour créer un objet qui tombe
   function createFallingObject() {
@@ -300,11 +284,11 @@ document.addEventListener("DOMContentLoaded", () => {
     console.error("Les éléments de l'intro n'ont pas été trouvés.");
   }
 
-  if (restartButton) {
-    restartButton.addEventListener("click", restartGame);
-  } else {
-    console.error("L'élément du bouton de redémarrage est manquant.");
-  }
+  //if (restartButton) {
+  //  restartButton.addEventListener("click", restartGame);
+  //} else {
+  //  console.error("L'élément du bouton de redémarrage est manquant.");
+  //}
 
   soundToggleButton.addEventListener("click", toggleSound);
 
