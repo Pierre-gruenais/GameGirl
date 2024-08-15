@@ -257,7 +257,7 @@ h1 {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 10px; /* Hauteur de la limite invisible */
+  height: 5px; /* Hauteur de la limite invisible */
   background-color: transparent; /* Invisible */
   pointer-events: none; /* Ignore les événements de la souris */
 }

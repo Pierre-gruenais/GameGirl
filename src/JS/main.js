@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const ctx = gameCanvas.getContext("2d");
   const startButton = document.getElementById("start-button");
   const introOverlay = document.getElementById("intro-overlay");
- 
+
   const backgroundMusic = document.getElementById("background-music");
   const soundToggleButton = document.getElementById("sound-toggle");
 
@@ -130,16 +130,12 @@ document.addEventListener("DOMContentLoaded", () => {
         updateLives();
 
         if (lives <= 0) {
-          alert("gameover"); 
+          alert("gameover");
         }
       }
       fallingObject.remove();
     }
   }
-
-  
-
-
 
   // Fonction pour créer un objet qui tombe
   function createFallingObject() {
