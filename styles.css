@@ -17,40 +17,8 @@ body {
   position: relative;
 }
 
-/*#background-wrapper {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: url("/src/assets/images/background 2.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}*/
 
-/*#game-container {
-  border: 5px solid white;
-  width: 80vw;
-  max-width: 800px;
-  height: 60vh;
-  max-height: 600px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #000;
-  position: relative;
-  overflow: hidden;
-}*/
 
-/*#game-area {
-  position: relative;
-  width: 100vw;
-  height: 90vh;
-  overflow: hidden;
-   background-color: transparent; /* Fond noir pour mieux voir les objets
- border: 2px solid green;  /*Bordure temporaire pour débogage 
-}*/
 #intro-overlay {
   position: center;
   top: 0;
@@ -61,12 +29,12 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 10; /* Assure que le bandeau est au-dessus des autres éléments */
+  z-index: 10; /* bandeau  au-dessus des autres éléments */
 }
 
 #intro-content {
   text-align: center;
-  color: white;
+  color: #e3a0ec;;
   background: rgba(0, 0, 0, 0.9); /* Fond plus foncé pour le contenu */
   padding: 20px;
   border-radius: 10px;
@@ -102,13 +70,11 @@ body {
   left: 0;
   width: 99%;
   height: 99.5%;
-  z-index: 1; /* Assure que les objets tombants sont au-dessus */
+  z-index: 1; /* les objets tombants sont au-dessus */
   background-color: transparent;
-  /*border: 10px solid rgb(167, 204, 34); /*Bordure temporaire pour débogage */
+
   overflow: hidden;
 }
-
-
 
 .falling-object,
 .malus-object {
@@ -120,9 +86,9 @@ body {
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
-  /*border: 2px solid white;*/
+
   top: 0;
-  /* Ajout pour gérer l'adaptation de l'image */
+
   object-fit: contain; /* Adaptation de l'image sans la tronquer */
 }
 .explosion {
@@ -137,7 +103,7 @@ body {
   50% {
     transform: scale(1.5); /* Expansion */
     opacity: 0.7;
-    background-color: red; /* Couleur d'explosion */
+    background-color: red; /* Couleur d'explosion  a modifier*/
   }
   100% {
     transform: scale(0); /* Rétrécissement */
@@ -216,12 +182,11 @@ h1 {
   z-index: 20;
 }
 .sound-toggle {
-  width: 20px; /* Ajustez la taille selon vos besoins */
-  height: 20px; /* Ajustez la taille selon vos besoins */
+  width: 20px;
+  height: 20px;
   border-radius: 25px;
-  background-size: cover; /* Assurez-vous que l'image couvre le bouton */
-  background-position: center; /* Centre l'image dans le bouton */
-  border: none;
+  background-size: cover;
+  background-position: center;
   cursor: pointer;
   padding: 0;
   transition: opacity 0.3s ease;
@@ -239,11 +204,10 @@ h1 {
 }
 #character {
   position: absolute;
-  bottom: 1%; /* Positionne le personnage à une distance relative du bas */
+  bottom: 1%;
   left: 50%;
   transform: translateX(-50%);
   z-index: 2;
-  /*border: 2px solid blue;*/ /* Bordure temporaire pour débogage */
 }
 
 #character img {
@@ -257,21 +221,21 @@ h1 {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 5px; /* Hauteur de la limite invisible */
-  background-color: transparent; /* Invisible */
+  height: 5px;
+  background-color: transparent;
   pointer-events: none; /* Ignore les événements de la souris */
 }
 
 /* Media queries pour les petits écrans (portrait) */
 @media (orientation: portrait) {
   #character img {
-    width: 30vw; /* Ajusté pour les écrans en mode portrait */
+    width: 30vw;
     max-width: 150px;
   }
 
   .falling-object,
   .malus-object {
-    width: 12vw; /* Ajusté pour les écrans en mode portrait */
+    width: 12vw;
     height: 12vw;
     max-width: 100px;
     max-height: 100px;
@@ -281,13 +245,13 @@ h1 {
 /* Media queries pour les écrans en mode paysage */
 @media (orientation: landscape) {
   #character img {
-    width: 15vw; /* Ajusté pour les écrans en mode paysage */
+    width: 15vw;
     max-width: 150px;
   }
 
   .falling-object,
   .malus-object {
-    width: 8vw; /* Ajusté pour les écrans en mode paysage */
+    width: 8vw;
     height: 8vw;
     max-width: 80px;
     max-height: 80px;
@@ -297,13 +261,13 @@ h1 {
 /* Media queries pour les petits écrans (moins de 600px) */
 @media (max-width: 600px) {
   #character img {
-    width: 20vw; /* Ajusté pour les écrans plus petits */
+    width: 20vw;
     max-width: 120px;
   }
 
   .falling-object,
   .malus-object {
-    width: 10vw; /* Ajusté pour les écrans plus petits */
+    width: 10vw;
     height: 10vw;
     max-width: 80px;
     max-height: 80px;
@@ -313,7 +277,7 @@ h1 {
 /* Media queries pour les écrans larges (plus de 1024px) */
 @media (min-width: 1024px) {
   #character img {
-    width: 12vw; /* Réduit pour les grands écrans */
+    width: 12vw;
     max-width: 150px;
   }
 
