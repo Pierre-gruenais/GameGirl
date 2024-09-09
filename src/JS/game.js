@@ -30,7 +30,9 @@ document.addEventListener("DOMContentLoaded", () => {
   function startGame() {
     if (introOverlay) {
       introOverlay.style.display = "none";
-      backgroundMusic.play().catch((err) => console.error("Failed to play background music:", err));
+      backgroundMusic
+        .play()
+        .catch((err) => console.error("Failed to play background music:", err));
 
       setInterval(createFallingObject, 5000);
       setInterval(createMalusObject, 10000);
@@ -76,8 +78,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const characterRect = character.getBoundingClientRect();
     const objectRect = fallingObject.getBoundingClientRect();
 
-    if (characterRect.left < objectRect.right && characterRect.right > objectRect.left &&
-      characterRect.top < objectRect.bottom && characterRect.bottom > objectRect.top) {
+    if (
+      characterRect.left < objectRect.right &&
+      characterRect.right > objectRect.left &&
+      characterRect.top < objectRect.bottom &&
+      characterRect.bottom > objectRect.top
+    ) {
       if (fallingObject.className === "falling-object") {
         updateScore(1);
       } else if (fallingObject.className === "malus-object") {
@@ -91,18 +97,36 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  function getFallSpeed() {
+    if (score >= 50) {
+      return Math.random() * 6 + Math.pow(score, 1.05)/ 10; // vitesse exponentielle a partir de 60 points
+       } else if (score >= 40) {
+      return Math.random() * 5.5 + 2.5; // vitesse plus rapide a partir de  40 points
+    } else if (score >= 30) {
+      return Math.random() * 5 + 2; // vitesse plus rapide a partir de 30 points
+    } else if (score >= 20) {
+      return Math.random() * 4 + 2; // vitesse plus rapide a partir de  20 points
+    } else if (score >= 10) {
+      return Math.random() * 3 + 1.5; // vitesse plus rapide a 10 points
+    } else {
+      return Math.random() * 2 + 1; //vitesse de base
+    }
+  }
+
   function createFallingObject() {
     if (!gameStarted) return;
     const fallingObject = document.createElement("div");
     fallingObject.className = "falling-object";
     const randomImage = images[Math.floor(Math.random() * images.length)];
     fallingObject.style.backgroundImage = `url(${randomImage})`;
-    fallingObject.style.left = `${Math.random() * (gameCanvas.clientWidth - 50)}px`;
+    fallingObject.style.left = `${
+      Math.random() * (gameCanvas.clientWidth - 50)
+    }px`;
     fallingObject.style.top = "0px";
     document.body.appendChild(fallingObject);
 
     let top = 0;
-    const fallSpeed = Math.random() * 2 + 1;
+    const fallSpeed = getFallSpeed();
     const fallInterval = setInterval(() => {
       top += fallSpeed;
       fallingObject.style.top = `${top}px`;
@@ -119,14 +143,17 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!gameStarted) return;
     const malusObject = document.createElement("div");
     malusObject.className = "malus-object";
-    const randomMalusImage = malusImageUrl[Math.floor(Math.random() * malusImageUrl.length)];
+    const randomMalusImage =
+      malusImageUrl[Math.floor(Math.random() * malusImageUrl.length)];
     malusObject.style.backgroundImage = `url(${randomMalusImage})`;
-    malusObject.style.left = `${Math.random() * (gameCanvas.clientWidth - 50)}px`;
+    malusObject.style.left = `${
+      Math.random() * (gameCanvas.clientWidth - 50)
+    }px`;
     malusObject.style.top = "0px";
     document.body.appendChild(malusObject);
 
     let top = 0;
-    const fallSpeed = Math.random() * 2 + 1;
+    const fallSpeed = getFallSpeed();
     const fallInterval = setInterval(() => {
       top += fallSpeed;
       malusObject.style.top = `${top}px`;

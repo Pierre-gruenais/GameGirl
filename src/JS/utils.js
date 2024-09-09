@@ -1,1 +1,0 @@
-//inclure des fonctions utilitaires qui pourraient être utilisées à plusieurs endroits dans votre jeu, comme des fonctions de calcul, de manipulation de chaînes, ou tout autre fonction qui n'est pas spécifique à la logique du jeu elle-même.
