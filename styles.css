@@ -17,8 +17,6 @@ body {
   position: relative;
 }
 
-
-
 #intro-overlay {
   position: center;
   top: 0;
@@ -34,7 +32,7 @@ body {
 
 #intro-content {
   text-align: center;
-  color: #e3a0ec;;
+  color: #e3a0ec;
   background: rgba(0, 0, 0, 0.9); /* Fond plus foncé pour le contenu */
   padding: 20px;
   border-radius: 10px;
@@ -57,6 +55,56 @@ body {
 }
 
 #start-button:hover {
+  color: #ffffff;
+  background: #e3a0ec;
+  border: 1px solid #008cff;
+  text-shadow: 0 0 5px #008cff, 0 0 10px #008cff, 0 0 20px #008cff;
+  box-shadow: 0 0 5px #008cff, 0 0 20px #008cff, 0 0 50px #008cff,
+    0 0 100px #008cff;
+}
+
+#game-over-overlay {
+  position: center;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 50%;
+  background: rgba(0, 0, 0, 0.8); /* Fond semi-transparent */
+  display: none;
+  justify-content: center;
+  color: #e3a0ec;
+  text-align: center;
+  align-items: center;
+  border-radius: 10px;
+  z-index: 20; /* bandeau  au-dessus des autres éléments */
+}
+
+#overlay-content {
+  text-align: center;
+
+  color: #e3a0ec;
+  background: rgba(0, 0, 0, 0.9); /* Fond plus foncé pour le contenu */
+  padding: 20px;
+  border-radius: 10px;
+}
+
+#restart-button {
+  padding: 10px 20px;
+  text-transform: uppercase;
+  border-radius: 8px;
+  font-size: 17px;
+  font-weight: 500;
+  color: #ffffff80;
+  text-shadow: none;
+  background: transparent;
+  cursor: pointer;
+  box-shadow: transparent;
+  border: 1px solid #ffffff80;
+  transition: 0.5s ease;
+  user-select: none;
+}
+
+#restart-button:hover {
   color: #ffffff;
   background: #e3a0ec;
   border: 1px solid #008cff;

@@ -4,6 +4,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const startButton = document.getElementById("start-button");
   const introOverlay = document.getElementById("intro-overlay");
   const backgroundMusic = document.getElementById("background-music");
+  const gameOverOverlay = document.getElementById("game-over-overlay");
+  const restartButton = document.getElementById("restart-button");
+  const finalScoreElement = document.getElementById("final-score");
   let soundEnabled = true;
   let lives = 3;
   let previousLives = lives;
@@ -40,6 +43,31 @@ document.addEventListener("DOMContentLoaded", () => {
       updateScore(0);
       gameStarted = true;
     }
+  }
+
+  function showGameOver() {
+    if (finalScoreElement) {
+      finalScoreElement.textContent = `Score: ${score}`; // affichage du score dans le bandeau game over
+    }
+    gameOverOverlay.style.display = "flex";
+    gameStarted = false; // arrete le jeu
+  }
+
+  function restartGame() {
+    lives = 3;
+    score = 0;
+    updateLives();
+    updateScore(0);
+    gameOverOverlay.style.display = "none"; // Cache le bandeau Game Over
+    gameStarted = true;
+    // Réinitialiser les objets qui tombent, si nécessaire
+    // setInterval(createFallingObject, 5000);
+    // setInterval(createMalusObject, 10000);
+  }
+
+  //gestion du bouton restart
+  if (restartButton) {
+    restartButton.addEventListener("click", restartGame);
   }
 
   function updateLives() {
@@ -90,7 +118,8 @@ document.addEventListener("DOMContentLoaded", () => {
         lives -= 1;
         updateLives();
         if (lives <= 0) {
-          alert("Game over");
+          // alert("Game over");
+          showGameOver(); //bandeau game over
         }
       }
       fallingObject.remove();
@@ -99,8 +128,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function getFallSpeed() {
     if (score >= 50) {
-      return Math.random() * 6 + Math.pow(score, 1.05)/ 10; // vitesse exponentielle a partir de 60 points
-       } else if (score >= 40) {
+      return Math.random() * 6 + Math.pow(score, 1.05) / 10; // vitesse exponentielle a partir de 60 points
+    } else if (score >= 40) {
       return Math.random() * 5.5 + 2.5; // vitesse plus rapide a partir de  40 points
     } else if (score >= 30) {
       return Math.random() * 5 + 2; // vitesse plus rapide a partir de 30 points

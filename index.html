@@ -7,7 +7,7 @@
     <link rel="icon" href="src\assets\icons\favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="styles.css" />
   </head>
-  <body>
+  
    
     <div id="intro-overlay">
       <div id="intro-content">
@@ -54,10 +54,14 @@
       loop
     ></audio>
    
-    <!-- <div id="game-over-banner" class="hidden">
+     <div id="game-over-overlay" class="game-over-overlay">
+      <div class="overlay-content">
       <h1>Game Over</h1>
-     <button id="restart-button">Restart</button>-->
+      <p id="final-score">Score: 0</p>
+     <button id="restart-button">Restart</button>
+      </div>
     </div>
+
     <script src="src/JS/main.js"></script>
     <script src="src/JS/game.js"></script>
     <script src="src/JS/character.js"></script>
