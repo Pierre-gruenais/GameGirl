@@ -37,8 +37,14 @@ document.addEventListener("DOMContentLoaded", () => {
         .play()
         .catch((err) => console.error("Failed to play background music:", err));
 
-      setInterval(createFallingObject, 5000);
-      setInterval(createMalusObject, 10000);
+      //creation des premiers objets
+      createFallingObject();
+      setTimeout(createMalusObject, 2000);
+
+      //intervalle de chute des objets
+      setInterval(createFallingObject, 2000);
+      setInterval(createMalusObject, 5000);
+
       updateLives();
       updateScore(0);
       gameStarted = true;
@@ -144,55 +150,68 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function createFallingObject() {
     if (!gameStarted) return;
+
     const fallingObject = document.createElement("div");
     fallingObject.className = "falling-object";
     const randomImage = images[Math.floor(Math.random() * images.length)];
-    fallingObject.style.backgroundImage = `url(${randomImage})`;
-    fallingObject.style.left = `${
-      Math.random() * (gameCanvas.clientWidth - 50)
-    }px`;
-    fallingObject.style.top = "0px";
-    document.body.appendChild(fallingObject);
 
-    let top = 0;
-    const fallSpeed = getFallSpeed();
-    const fallInterval = setInterval(() => {
-      top += fallSpeed;
-      fallingObject.style.top = `${top}px`;
-      detectCollisions(fallingObject);
+    //préchargement de l'image avant affichage
+    const img = new Image();
+    img.src = randomImage;
+    img.onload = () => {
+      fallingObject.style.backgroundImage = `url(${randomImage})`;
+      fallingObject.style.left = `${
+        Math.random() * (gameCanvas.clientWidth - 50)
+      }px`;
+      fallingObject.style.top = "-50px";
+      document.body.appendChild(fallingObject);
 
-      if (top > window.innerHeight - fallingObject.clientHeight) {
-        clearInterval(fallInterval);
-        fallingObject.remove();
-      }
-    }, 1000 / 60);
+      let top = -50;
+      const fallSpeed = getFallSpeed();
+      const fallInterval = setInterval(() => {
+        top += fallSpeed;
+        fallingObject.style.top = `${top}px`;
+        detectCollisions(fallingObject);
+
+        if (top > window.innerHeight) {
+          clearInterval(fallInterval);
+          fallingObject.remove();
+        }
+      }, 16);
+    };
   }
 
   function createMalusObject() {
     if (!gameStarted) return;
+
     const malusObject = document.createElement("div");
     malusObject.className = "malus-object";
     const randomMalusImage =
       malusImageUrl[Math.floor(Math.random() * malusImageUrl.length)];
+
+       // Préchargement de l'image avant de l'afficher
+  const img = new Image();
+  img.src = randomMalusImage;
+  img.onload = () => {
     malusObject.style.backgroundImage = `url(${randomMalusImage})`;
-    malusObject.style.left = `${
+   malusObject.style.left = `${
       Math.random() * (gameCanvas.clientWidth - 50)
     }px`;
-    malusObject.style.top = "0px";
+    malusObject.style.top = "-50px";
     document.body.appendChild(malusObject);
 
-    let top = 0;
+    let top = -50;
     const fallSpeed = getFallSpeed();
     const fallInterval = setInterval(() => {
       top += fallSpeed;
       malusObject.style.top = `${top}px`;
       detectCollisions(malusObject);
 
-      if (top > window.innerHeight - malusObject.clientHeight) {
+      if (top > window.innerHeight ) {
         clearInterval(fallInterval);
         malusObject.remove();
       }
-    }, 1000 / 60);
+    }, 16);
   }
 
   if (startButton && introOverlay) {
