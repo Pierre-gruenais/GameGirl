@@ -52,10 +52,20 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function showGameOver() {
-    if (finalScoreElement) {
-      finalScoreElement.textContent = `Score: ${score}`; // affichage du score dans le bandeau game over
+    const gameOverOverlay = document.getElementById("game-over-overlay");
+    const gameOverElement = document.getElementById("game-over");
+    const finalScoreElement = document.getElementById("final-score");
+
+    if (gameOverElement) {
+      gameOverElement.textContent = "Game Over";
     }
-    gameOverOverlay.style.display = "flex";
+    if (finalScoreElement) {
+      finalScoreElement.textContent = `Ton score: ${score}`; // affichage du score dans le bandeau game over
+    }
+    if (gameOverOverlay) {
+      gameOverOverlay.style.display = "flex";
+    }
+
     gameStarted = false; // arrete le jeu
   }
 
@@ -64,8 +74,17 @@ document.addEventListener("DOMContentLoaded", () => {
     score = 0;
     updateLives();
     updateScore(0);
-    gameOverOverlay.style.display = "none"; // Cache le bandeau Game Over
+
+    const gameOverOverlay = document.getElementById("game-over-overlay");
+    if (gameOverOverlay) {
+      gameOverOverlay.style.display = "none"; // Cache le bandeau Game Over
+    }
+
     gameStarted = true;
+
+    //creation des premiers objets
+    createFallingObject();
+    setTimeout(createMalusObject, 2000);
   }
 
   //gestion du bouton restart

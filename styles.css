@@ -75,7 +75,7 @@ body {
   color: #e3a0ec;
   text-align: center;
   align-items: center;
-  border-radius: 10px;
+  border-radius: 30px;
   z-index: 20; /* bandeau  au-dessus des autres éléments */
 }
 
