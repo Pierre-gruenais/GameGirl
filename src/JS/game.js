@@ -66,9 +66,6 @@ document.addEventListener("DOMContentLoaded", () => {
     updateScore(0);
     gameOverOverlay.style.display = "none"; // Cache le bandeau Game Over
     gameStarted = true;
-    // Réinitialiser les objets qui tombent, si nécessaire
-    // setInterval(createFallingObject, 5000);
-    // setInterval(createMalusObject, 10000);
   }
 
   //gestion du bouton restart
@@ -189,29 +186,30 @@ document.addEventListener("DOMContentLoaded", () => {
     const randomMalusImage =
       malusImageUrl[Math.floor(Math.random() * malusImageUrl.length)];
 
-       // Préchargement de l'image avant de l'afficher
-  const img = new Image();
-  img.src = randomMalusImage;
-  img.onload = () => {
-    malusObject.style.backgroundImage = `url(${randomMalusImage})`;
-   malusObject.style.left = `${
-      Math.random() * (gameCanvas.clientWidth - 50)
-    }px`;
-    malusObject.style.top = "-50px";
-    document.body.appendChild(malusObject);
+    // Préchargement de l'image avant de l'afficher
+    const img = new Image();
+    img.src = randomMalusImage;
+    img.onload = () => {
+      malusObject.style.backgroundImage = `url(${randomMalusImage})`;
+      malusObject.style.left = `${
+        Math.random() * (gameCanvas.clientWidth - 50)
+      }px`;
+      malusObject.style.top = "-50px";
+      document.body.appendChild(malusObject);
 
-    let top = -50;
-    const fallSpeed = getFallSpeed();
-    const fallInterval = setInterval(() => {
-      top += fallSpeed;
-      malusObject.style.top = `${top}px`;
-      detectCollisions(malusObject);
+      let top = -50;
+      const fallSpeed = getFallSpeed();
+      const fallInterval = setInterval(() => {
+        top += fallSpeed;
+        malusObject.style.top = `${top}px`;
+        detectCollisions(malusObject);
 
-      if (top > window.innerHeight ) {
-        clearInterval(fallInterval);
-        malusObject.remove();
-      }
-    }, 16);
+        if (top > window.innerHeight) {
+          clearInterval(fallInterval);
+          malusObject.remove();
+        }
+      }, 16);
+    };
   }
 
   if (startButton && introOverlay) {
