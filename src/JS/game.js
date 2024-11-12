@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function showGameOver() {
     if (finalScoreElement) {
-      finalScoreElement.textContent = `Score: ${score}`; // affichage du score dans le bandeau game over
+      finalScoreElement.textContent = `Score: ${ton score}`; // affichage du score dans le bandeau game over
     }
     gameOverOverlay.style.display = "flex";
     gameStarted = false; // arrete le jeu
